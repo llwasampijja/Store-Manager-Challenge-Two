@@ -10,6 +10,12 @@ def get_products():
     return jsonify(products_list.get_all_products())
 
 
+@bp.route('/products/add', methods=['POST'])    
+def add_product():   
+    products_list = Products()
+    return jsonify(products_list.admin_add_product())
+
+
 # appl = Flask(__name__)
 
 # products_model = Products()

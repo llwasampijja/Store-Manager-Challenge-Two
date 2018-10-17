@@ -6,6 +6,7 @@ from .utilities import bp, endpoints_list
 def create_app(config_filename):
     app = Flask(__name__)
     app.register_blueprint(get_products)
+    app.register_blueprint(add_product)
     return app
 
 

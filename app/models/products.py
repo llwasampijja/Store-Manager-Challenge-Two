@@ -2,7 +2,6 @@ class Products():
 
     def __init__(self, **kwargs):
 
-        self.product_id = kwargs.get("product_id")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
         self.category = kwargs.get("category")
@@ -64,3 +63,21 @@ class Products():
             return message
         else:
             return self.products
+
+    def admin_add_product(self):
+        product_new = {
+            "product_id": "5",
+            "product_name": "Nile Special",
+            "unit_price": 4000,
+            "category": "alcohol",
+            "stock-date": "10/17/2018",
+            "quantity": 300,
+            "acceptable-minimum": 80
+        }
+
+        for product in self.products:
+            if product_new["product_name"] == product["product_name"]:
+                return "That product is already in the system, consider modifying that."
+            else:
+                self.products.append(product_new)
+                return self.products
