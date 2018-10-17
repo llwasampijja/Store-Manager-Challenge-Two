@@ -2,6 +2,7 @@ class Products():
 
     def __init__(self, **kwargs):
 
+        self.product_id = kwargs.get("product_id")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
         self.category = kwargs.get("category")
