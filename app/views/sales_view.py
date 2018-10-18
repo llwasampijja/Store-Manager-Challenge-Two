@@ -14,6 +14,6 @@ def get_sales():
 def get_a_sale(sale_index):
     return jsonify(sales_records.get_single_sale (sale_index))
 
-@bp.route('/sales/add', methods=['POST'])    
+@bp.route('/sales/add/<int:sale_index>', methods=['POST'])    
 def add_sale():   
     return jsonify(sales_records.make_sale_order)
