@@ -1,3 +1,4 @@
+import pytest
 def test_index(client, auth):
     response = client.get('/')
     # assert b"Log In" in response.data
