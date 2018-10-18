@@ -1,18 +1,13 @@
 language: python
 python:
-  - "3.6"
-
-env:
-  global:
-    - APP_SETTINGS=testing
-    - CODECOV_TOKEN="b2e366e8-f7b8-44df-b1e9-8370a167dbff
+  - "3.7"
 
 install:
   - "pip install -r requirements.txt"
 
+# command to run tests
 script:
-  - python3 -m pytest --cov=app/tests/
-  - coveralls
+  - pytest
 
 
 after_success:
