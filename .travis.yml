@@ -9,8 +9,3 @@ install:
 script:
   - python3 -m pytest
   - coveralls
-
-#  --cov=app/tests/
-after_success:
-  - codecov
-  #jou uytut
