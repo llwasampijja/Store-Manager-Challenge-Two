@@ -65,6 +65,11 @@ class Products():
         else:
             return self.products
 
+    def get_product_by_id (self, product_id):
+        for item in self.products:
+            if item["product_id"] == product_id:
+                return item
+
     def admin_add_product(self):
         product_new = {
             "product_id": "5",
