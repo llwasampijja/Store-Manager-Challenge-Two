@@ -4,7 +4,12 @@ from functools import wraps
 blueprint = Blueprint('api', __name__)
 endpoints_list = """
 <h2>Store Manager Challenge Two</h2>
+              <li><a href='/api/v1/products'>View All Products</a></li>
+              <li><a href='/api/v1/products/4'>Get a Product by id, i.e 4</a></li>
+              <li><a href='/api/v1/products/add'>Add a Product</a></li>
               <li><a href='/api/v1/sales/add'>Create A Sale Order</a></li>
+              <li><a href='/api/v1/sales/2'>Get a Sale Order by id, say 2</a></li>
+              <li><a href='/api/v1/sales'>View All Sale Order</a></li>
 """
 
 ACCESS = {
@@ -14,7 +19,7 @@ ACCESS = {
 }
 
 # Test case
-user_role = ACCESS['admin']
+user_role = ACCESS['store_attendant']
 author = True
 
 def store_attendant_authorised(fn):
