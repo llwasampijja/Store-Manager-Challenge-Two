@@ -52,11 +52,3 @@ class User():
 
     def is_store_owner(self):
         return self.access == ACCESS['store_owner']
-
-    def allowed(self, access_level):
-        return self.access >= access_level
-
-    def find_by_username(self, username):
-        for item in self.users:
-            if item["username"] == username:
-                return item
