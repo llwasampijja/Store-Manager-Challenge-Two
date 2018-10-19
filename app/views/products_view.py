@@ -6,13 +6,11 @@ app = Flask(__name__)
     
 @bp.route('/products', methods=['GET'])    
 def get_products():   
-    products_list = Products()
     return jsonify(products_list.get_all_products())
 
 
 @bp.route('/products/add', methods=['POST'])    
 def add_product():   
-    products_list = Products()
     return jsonify(products_list.admin_add_product())
 
 
