@@ -1,5 +1,5 @@
 from flask import Blueprint
-bp = Blueprint('api', __name__)
+blueprint = Blueprint('api', __name__)
 endpoints_list = """
 <h2>Store Manager Challenge Two</h2>
               List of End Points <br>
