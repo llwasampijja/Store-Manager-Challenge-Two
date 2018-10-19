@@ -1,6 +1,6 @@
 from app.models.products import Products
 from flask import Flask, jsonify
-from app.utilities import blueprint
+from app.utilities import blueprint, admin_authorised
 
 app = Flask(__name__)
 products_list = Products()
@@ -11,7 +11,8 @@ def get_products():
     return jsonify(products_list.get_all_products())
 
 #add product
-@blueprint.route('/products/add', methods=['POST'])    
+@blueprint.route('/products/add', methods=['POST']) 
+@admin_authorised   
 def add_product():   
     products_list = Products()
     return jsonify(products_list.admin_add_product())
