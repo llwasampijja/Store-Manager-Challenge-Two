@@ -82,8 +82,10 @@ class Products():
         }
 
         for product in self.products:
+            # test if product already exists in the inventory
             if product_new["product_name"] == product["product_name"]:
                 return "That product is already in the system, consider modifying that."
+                # check to see if user enters nothing in any of the fields
             else:
                 self.products.append(product_new)
                 return self.products
