@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, jsonify
 from app.models.products import Products
 from app.views.products_view import *
-from .utilities import bp, endpoints_list
+from .utilities import blueprint, endpoints_list
 
 def create_app(config_filename):
     app = Flask(__name__)
@@ -12,8 +12,8 @@ def create_app(config_filename):
 
 app = Flask(__name__)
 # Landing Page
-@app.route("/", methods=["GET"])
+@blueprint.route("/", methods=["GET"])
 def index():
     return endpoints_list
 
-app.register_blueprint(bp, url_prefix='/api/v1')
+app.register_blueprint(blueprint, url_prefix='/api/v1')
