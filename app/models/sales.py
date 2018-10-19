@@ -9,7 +9,7 @@ class Sales():
         self.sale_date = kwargs.get("sale_date")
         self.sale_quantity = kwargs.get("sale_quantity")
         self.total_sale = kwargs.get("total_sale")
-        self.store_attendant = kwargs.get("store_attendant")
+        self.sale_made_by = kwargs.get("sale_made_by")
         
         self.sale_records = [
             {
@@ -20,7 +20,7 @@ class Sales():
             "sale_date": "11/12/2018",
             "sale_quantity": 1,
             "total_sale": 10000,
-            "store_attendant": "Dall Kased"
+            "sale_made_by": "Dall Kased"
             },
             {
             "sale_index": 2,
@@ -30,7 +30,7 @@ class Sales():
             "sale_date": "11/12/2018",
             "sale_quantity": 2,
             "total_sale": 1000,
-            "store_attendant": "John Snow"
+            "sale_made_by": "John Snow"
             },
             {
             "sale_index": 3,
@@ -40,7 +40,7 @@ class Sales():
             "sale_date": "11/12/2018",
             "sale_quantity": 3,
             "total_sale": 3000,
-            "store_attendant": "No One"
+            "sale_made_by": "No One"
             },
             {
             "sale_index": 4,
@@ -50,7 +50,7 @@ class Sales():
             "sale_date": "11/12/2018",
             "sale_quantity": 4,
             "total_sale": 1400,
-            "store_attendant": "Dall Kased"
+            "sale_made_by": "Dall Kased"
             },
             {
             "sale_index": 5,
@@ -60,7 +60,7 @@ class Sales():
             "sale_date": "11/12/2018",
             "sale_quantity": 10,
             "total_sale": 10000,
-            "store_attendant": "No One"
+            "sale_made_by": "No One"
             }
     ]
 
@@ -85,7 +85,7 @@ class Sales():
             "sale_date": "10/18/2018",
             "sale_quantity": 3,
             "total_sale": 6000,
-            "store_attendant": "Jon Snow"
+            "sale_made_by": "Jon Snow"
         }
 
         self.sale_records.append(sale_order_new)
