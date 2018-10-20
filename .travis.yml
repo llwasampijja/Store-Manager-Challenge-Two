@@ -11,7 +11,7 @@ install:
 
 # command to run tests
 script:
-  - python3 -m pytest — with-coverage
+  - python3 -m pytest
   - coveralls
   - coverage
 
