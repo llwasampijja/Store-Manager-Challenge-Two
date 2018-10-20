@@ -13,7 +13,7 @@ install:
 script:
   - python3 -m pytest
   - coveralls
-  - coverage run pytest
+  - coverage pytest
 
 after_success:
   - codecov
