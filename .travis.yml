@@ -11,9 +11,10 @@ install:
 
 # command to run tests
 script:
-  - python3 -m pytest
+  - python3 -m pytest — with-coverage
   - coveralls
-  - coverage pytest
+  - coverage
 
 after_success:
   - codecov
+  - bash < (curl -s https://codecov.io/bash)
