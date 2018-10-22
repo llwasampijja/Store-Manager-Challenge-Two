@@ -71,6 +71,7 @@ a {
                 <li> <a href='/api/v1/products'>Get all products</a></li>
                 <li> <a href='/api/v1/products/4'>Get a product by id, say id = 4</a></li>
                 <li> <a href='/api/v1/products/add'>Add a product</a></li>
+                <li> <a href='/api/v1/products/update/4'>Update a product</a></li>
                 <li> <a href='/api/v1/sales/add'>Create A Sale Order</a></li>
                 <li> <a href='/api/v1/sales/2'>Get a Sale Order by id, say id = 2</a></li>
                 <li> <a href='/api/v1/sales'>View All Sale Orders</a></li>

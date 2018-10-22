@@ -8,7 +8,6 @@ import os
 
 def create_app(config_filename):
     app = Flask(__name__)
-    # app.register_blueprint(get_sales)
     return app
 
 

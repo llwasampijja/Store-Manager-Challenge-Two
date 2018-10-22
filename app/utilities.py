@@ -41,3 +41,17 @@ def admin_authorised(fn):
             return jsonify(msg='This featuer is only available to people with admin rights!'), 403
             
     return wrapper
+
+#method for returning items in any list. i.e, list of sales, list of products, etc.
+def get_all_items(items):
+        if len(items) == 0:
+            message = {"message": "List is Empty"}
+            return message
+        else:
+            return items
+
+# method to return the value of item at given index ina list
+def get_chosen_item (index_label, item_index, items):
+        for item in items:
+            if item["{0}".format(index_label)] == item_index:
+                return item
