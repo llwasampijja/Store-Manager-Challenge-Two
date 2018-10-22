@@ -10,7 +10,7 @@ ACCESS = {
 }
 
 # Test case
-user_role = ACCESS['admin']
+user_role = ACCESS['store_attendant']
 author = True
 
 def store_attendant_authorised(fn):

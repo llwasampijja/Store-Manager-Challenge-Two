@@ -2,6 +2,7 @@ from app.models.sales import Sales
 from flask import Flask, jsonify, Response, request
 from app.utilities import blueprint, admin_authorised, store_attendant_authorised, publisher_and_admin
 from functools import wraps
+import json
 
 app = Flask(__name__)
 sales_records = Sales()
@@ -20,7 +21,7 @@ def get_a_sale(sale_index):
 @blueprint.route('/sales/add', methods=['POST'])  
 @store_attendant_authorised  
 def add_sale():
-    request_data = request.get_json
+    request_data = request.get_json()
     all_sales.append(request_data)
-    response = Response(all_sales)
+    response = Response(json.dumps(all_sales))
     return response
