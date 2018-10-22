@@ -16,45 +16,45 @@ class Products():
             "product_name": "Tumpeco",
             "unit_price": 500,
             "category": "Utencils",
-            "stock-date": "11/12/2018",
+            "stock_date": "11/12/2018",
             "quantity": 50,
-            "acceptable-minimum": 10
+            "acceptable_minimum": 10
             },
             {
             "product_id": 1,
             "product_name": "1 Dozen Spoons",
             "unit_price": 10000,
             "category": "Utencils",
-            "stock-date": "11/11/2018",
+            "stock_date": "11/11/2018",
             "quantity": 12,
-            "acceptable-minimum": 2
+            "acceptable_minimum": 2
             },
             {
             "product_id": 2,
             "product_name": "500g Noodles Packet",
             "unit_price": 1000,
             "category": "food",
-            "stock-date": "12/12/2018",
+            "stock_date": "12/12/2018",
             "quantity": 100,
-            "acceptable-minimum": 20
+            "acceptable_minimum": 20
             },
             {
             "product_id": 3,
             "product_name": "Smirnoff Black",
             "unit_price": 3500,
             "category": "alcohol",
-            "stock-date": "11/24/2018",
+            "stock_date": "11/24/2018",
             "quantity": 250,
-            "acceptable-minimum": 50
+            "acceptable_minimum": 50
             },
             {
             "product_id": 4,
             "product_name": "1 Liter Soda",
             "unit_price": 2000,
             "category": "Utencils",
-            "stock-date": "11/12/2018",
+            "stock_date": "11/12/2018",
             "quantity": 288,
-            "acceptable-minimum": 72
+            "acceptable_minimum": 72
             }
     ]
 
@@ -76,9 +76,9 @@ class Products():
             "product_name": "Nile Special",
             "unit_price": 4000,
             "category": "alcohol",
-            "stock-date": "10/17/2018",
+            "stock_date": "10/17/2018",
             "quantity": 300,
-            "acceptable-minimum": 80
+            "acceptable_minimum": 80
         }
 
         for product in self.products:
