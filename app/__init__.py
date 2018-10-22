@@ -5,12 +5,11 @@ from app.views.products_view import get_products
 from .utilities import blueprint
 from .landing_page import webpage
 
-app = Flask(__name__)
-app.register_blueprint(blueprint, url_prefix='/api/v1')
-
 
 # Landing Page
 @blueprint.route("/", methods=["GET"])
 def index():
     return webpage
 
+app = Flask(__name__)
+app.register_blueprint(blueprint, url_prefix='/api/v1')
