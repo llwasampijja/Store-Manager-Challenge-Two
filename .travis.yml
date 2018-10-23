@@ -8,4 +8,10 @@ install:
 # command to run tests
 script:
   - python3 -m pytest
+<<<<<<< HEAD
+=======
+  - coverage report
+  
+after_success:
+>>>>>>> feature
   - coveralls
