@@ -1,4 +1,4 @@
 # Store-Manager-Challenge-Two
 A set of API endpoints as defined, using data structures  to store data in memory (not  a database).   
 
-[![Build Status](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two.svg?branch=add_product)](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two) [![Coverage Status](https://coveralls.io/repos/github/llwasampijja/Store-Manager-Challenge-Two/badge.svg?branch=add_product)](https://coveralls.io/github/llwasampijja/Store-Manager-Challenge-Two?branch=add_product)
+[![Build Status](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two.svg?branch=add_product)](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two) [![Coverage Status](https://coveralls.io/repos/github/llwasampijja/Store-Manager-Challenge-Two/badge.svg?branch=add_product)](https://coveralls.io/github/llwasampijja/Store-Manager-Challenge-Two?branch=add_product)  [![Maintainability](https://api.codeclimate.com/v1/badges/57f01820e2adec3aaf6b/maintainability)](https://codeclimate.com/github/llwasampijja/Store-Manager-Challenge-Two/maintainability)
