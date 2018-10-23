@@ -21,13 +21,13 @@ def get_a_product(product_id):
 def add_product():
     request_data = request.get_json()
 
-    product_id = request_data["product_id"]
-    product_name = request_data["product_name"]
-    unit_price = request_data["unit_price"]
-    category = request_data["category"]
-    stock_date = request_data["stock_date"]
-    quantity = request_data["stock_date"]
-    acceptable_minimum = request_data["acceptable_minimum"]
+    # product_id = request_data["product_id"]
+    # product_name = request_data["product_name"]
+    # unit_price = request_data["unit_price"]
+    # category = request_data["category"]
+    # stock_date = request_data["stock_date"]
+    # quantity = request_data["stock_date"]
+    # acceptable_minimum = request_data["acceptable_minimum"]
 
     # if(isinstance(product_id, int))
     # products.append(request_data)
