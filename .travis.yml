@@ -7,8 +7,7 @@ install:
 
 # command to run tests
 script:
-  - python3 -m pytest
-  - coverage report
-
+  - python3 -m pytest --cov
+  
 after_success:
   - coveralls
