@@ -2,9 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-<<<<<<< HEAD
-.pytest_cache/
-=======
 
 # C extensions
 *.so
@@ -105,4 +102,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
->>>>>>> feature

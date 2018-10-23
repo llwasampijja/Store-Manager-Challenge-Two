@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-from flask import Blueprint
-bp = Blueprint('api', __name__)
-endpoints_list = """
-<h2>Store Manager Challenge Two</h2>
-              <h3><a href='/api/v1/'>Welcome to Challenge two 2</a></h3>
-"""
-=======
 from flask import Blueprint, jsonify
 from functools import wraps
 
@@ -63,4 +55,3 @@ def get_chosen_item (index_label, item_index, items):
         for item in items:
             if item["{0}".format(index_label)] == item_index:
                 return item
->>>>>>> feature
