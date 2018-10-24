@@ -8,7 +8,7 @@ ACCESS = {
 }
 
 # Test case
-user_role = ACCESS['admin']
+user_role = ACCESS.get('admin')
 author = True
 
 def store_attendant_authorised(fn):
@@ -51,5 +51,5 @@ def get_all_items(items):
 # method to return the value of item at given index ina list
 def get_chosen_item (index_label, item_index, items):
         for item in items:
-            if item["{0}".format(index_label)] == item_index:
+            if item.get("{0}".format(index_label)) == item_index:
                 return item
