@@ -46,8 +46,7 @@ On running that command, the application server will be launched and the URL to 
 | /products  | Return all products  |GET  | None |
 | /products/product_id | Return product with specified product_id  |GET  |None  |
 | /products/add | Add a product  |POST  |•	product_id (int), product_name (string), unit_price (int), category (string), stock_date (string), quantity (int), acceptable_minimum (int) •	Must be an admin|
-| /products/product_id  | Update product  |PATCH  |•	Any or some of all of below: product_id (int), product_name (string), unit_price (int), category (string), stock_date (string), quantity (int), acceptable_minimum (int) •	Must be an admin
-  |
+| /products/product_id  | Update product  |PATCH  |•	Any or some of all of below: product_id (int), product_name (string), unit_price (int), category (string), stock_date (string), quantity (int), acceptable_minimum (int) •	Must be an admin |
 | /sales  | Get all sale records  |GET  |Must be an admin  |
 | /sales/sale_index  | Get a sale record of specified sale_index  |GET  |Must be an admin or the store attendant who created the sale.  |
 | /sales/add  | Create a sale record  |POST  |Must be a store attendant.  |
