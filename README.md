@@ -1,6 +1,7 @@
 
 [![Build Status](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two.svg?branch=feature)](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two)          [![Coverage Status](https://coveralls.io/repos/github/llwasampijja/Store-Manager-Challenge-Two/badge.svg?branch=feature)](https://coveralls.io/github/llwasampijja/Store-Manager-Challenge-Two?branch=feature)          [![Maintainability](https://api.codeclimate.com/v1/badges/57f01820e2adec3aaf6b/maintainability)](https://codeclimate.com/github/llwasampijja/Store-Manager-Challenge-Two/maintainability)
 
+
 # Store Manager API Endpoints
 This project is about a set of endpoints for the Store Manager App. The data used in testing the various endpoints is stored in memory using data structures and not a database.
 The endpoints include:
@@ -21,26 +22,41 @@ The endpoints include:
 - [Deployed Version](##DeployedVersion)
 
 ## Language
-This API has been developed using Python3.
+This API has been developed using [Python3](https://www.python.org).
 ## Installing
 ### Pre-Installations
-##### Python3 Installation
+##### Python3 Installation on Windows PC
 Since this API was developed using Python, you need to first install python3 in order to be able to run it. You can download python from [here](https://www.python.org/downloads/ "Official Python Site").
-##### Flask Installation
-You also need to install flask on your machine. Head to the [Flask Download Site](http://flask.pocoo.org/docs/1.0/installation/ "flask.pocoo")  for instructions on how to install Flask on your machine.
-##### Git Installation
-You can also install git, although it is not mandatory to run this application. However, it should be noted that you won’t be able to view the different branches in this project without git. If you need git, head to [Git ](https://git-scm.com/downloads "Official Git Download Site")  and follow the steps provided to install git on your machine.
-##### Postman installation
-You may also need to install postman (or any of its alternatives so as to test the different endpoints of this application. You won’t be able to test the endpoints in the browser since they (the endpoints) use other HTTP methods other than the “GET” method.
+After downloading it, double click the executable file and follow the prompts to install python on your machine.
+##### Git Installation on Windows PC
+You can also install git, although it is not mandatory to run this application. However, it should be noted that you won’t be able to view the different branches in this project without git. If you need git, head to [Git ](https://git-scm.com/downloads "Official Git Download Site")  and the executable file.
+Double click the executable file to run the installer and follow the prompts to install it on your windows PC. The process of installing git installs two tools which you can use, that is the Git Bash and Git GUI. For this project, you are going to use Git Bash for all the command-line prompt /terminal commands.
+##### Postman installation On Windows PC
+You will need to install postman (or any of its alternatives) so as to test the different endpoints in this application. You won’t be able to test the endpoints in the browser since they use other HTTP methods other than the “GET” method.
+To use postman, you need to install chrome as it (postman) is an extension of chrome. Install postman and postman interceptor extensions.
 
-### Installing the Project on Your Machine
-You can download the project by clicking on the “clone or download” button in the top right corner of this page. If you have git installed, you can choose to clone it using the URL; if not, just click the “download zip” option. Extract the contents of the zipped folder and you are done.
-### Other Requirements
-You may need to install other packages which are listed in the “requirements.txt” file. Depending on your preferences, these may be installed in a virtual environment or on your PC using pip.
+### Installing Requirements
+All the requirements required to run this application are listed in the requirements.txt file in the root folder of the project.
+While in the folder, run the command below to install these requirements.
+`pip3 install -r requirements.txt`
+
+### How to Clone This Repository to Your Local Machine (Windows PC)
+- Step 1: Create folder on your local machine and give it any name you want.
+- Step 2: Open the git bash tool and navigate to the folder that you just created in the step above.
+- Step 3: Now run this command in git bash CLI
+`git clone https://github.com/llwasampijja/Store-Manager-Challenge-Two`
+This will copy the entire project onto your local machine. Project name should be “Store-Manager-Challenge-Two”
+- Step 4: Navigate to that folder in git bash and change from the master branch to feature branch using the command below
+`Git checkout feature`
+
+And now you have successfully cloned the project and also configured it to run it on your computer.
+
+
 ## Running the Application
-To run this application, navigate to the extracted folder via the Terminal or command prompt, and run the command below:
+To run this application, navigate to the root folder of the project via the Terminal or command prompt, and run the command below:
 `py main.py`
 On running that command, the application server will be launched and the URL to that server will be shown to you in the command-line/terminal.
+
 #### Trying out the different Endpoints using postman
 |Endpoint|Endpoint Purpose|Allowed HTTP Method|Requirements|
 |---|---|---|---|
@@ -66,3 +82,4 @@ The endpoints of this application have been versioned. The current version is on
 
 ## Deployed Version
 This API is deployed on heroku. Find it [here](https://store-manager-two.herokuapp.com/api/v1 "Store Manager on Heroku")
+ The postman collections can be found [here](https://web.postman.co/collections/5689256-a13e8abe-46dc-514f-638d-38d2be40c2a2?workspace=6f3eb107-ee9c-4777-8d0e-a855b8794983)
