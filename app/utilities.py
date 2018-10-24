@@ -1,7 +1,5 @@
-from flask import Blueprint, jsonify
+from flask import jsonify
 from functools import wraps
-
-blueprint = Blueprint('api', __name__)
 
 ACCESS = {
     'user': 0,
@@ -10,7 +8,7 @@ ACCESS = {
 }
 
 # Test case
-user_role = ACCESS['store_attendant']
+user_role = ACCESS['admin']
 author = True
 
 def store_attendant_authorised(fn):

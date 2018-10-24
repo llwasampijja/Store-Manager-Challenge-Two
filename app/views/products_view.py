@@ -1,24 +1,24 @@
 from app.models.products import Products
-from flask import Flask, jsonify, request, Response
-from app.utilities import blueprint, admin_authorised
-from functools import wraps
+from flask import jsonify, request, Response, Blueprint
+from app.utilities import admin_authorised
 import json
 
-app = Flask(__name__)
+products_bp = Blueprint("products", __name__)
+
 products_obj = Products()
 products = products_obj.get_all_products()
     
-@blueprint.route('/products', methods=['GET'])
+@products_bp.route('/products', methods=['GET'])
 def get_products():   
     return jsonify(products)
 
 # GET a product by its id
-@blueprint.route('/products/<int:product_id>' , methods=['GET'])
+@products_bp.route('/products/<int:product_id>' , methods=['GET'])
 def get_a_product(product_id):
     return jsonify(products_obj.get_product_by_id(product_id))
 
 
-@blueprint.route('/products/add', methods=['POST'])
+@products_bp.route('/products/add', methods=['POST'])
 @admin_authorised    
 def add_product():
     request_data = request.get_json()
@@ -27,7 +27,7 @@ def add_product():
     return response
 
 # PATCH /products/product_id
-@blueprint.route('/products/<int:product_id>', methods=['PATCH'])
+@products_bp.route('/products/<int:product_id>', methods=['PATCH'])
 @admin_authorised    
 def update_product(product_id):
     request_data = request.get_json()

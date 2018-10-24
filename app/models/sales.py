@@ -71,11 +71,6 @@ class Sales():
     def get_single_sale(self, sale_index):
         return get_chosen_item("sale_index", sale_index, self.sale_records)
 
-    # def get_single_sale (self, sale_index):
-    #     for item in self.sale_records:
-    #         if item["sale_index"] == sale_index:
-    #             return item
-
     def make_sale_order(self):
         sale_order_new = {
             "sale_index": 6,
