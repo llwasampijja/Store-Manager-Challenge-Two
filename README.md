@@ -38,15 +38,19 @@ To use postman, you need to install chrome as it (postman) is an extension of ch
 ### Installing Requirements
 All the requirements required to run this application are listed in the requirements.txt file in the root folder of the project.
 While in the folder, run the command below to install these requirements.
+
 `pip3 install -r requirements.txt`
 
 ### How to Clone This Repository to Your Local Machine (Windows PC)
 - Step 1: Create folder on your local machine and give it any name you want.
 - Step 2: Open the git bash tool and navigate to the folder that you just created in the step above.
-- Step 3: Now run this command in git bash CLI
+- Step 3: Now run this command in git bash CLI.
+
 `git clone https://github.com/llwasampijja/Store-Manager-Challenge-Two`
+
 This will copy the entire project onto your local machine. Project name should be “Store-Manager-Challenge-Two”
 - Step 4: Navigate to that folder in git bash and change from the master branch to feature branch using the command below
+
 `Git checkout feature`
 
 And now you have successfully cloned the project and also configured it to run it on your computer.
@@ -54,7 +58,9 @@ And now you have successfully cloned the project and also configured it to run i
 
 ## Running the Application
 To run this application, navigate to the root folder of the project via the Terminal or command prompt, and run the command below:
+
 `py main.py`
+
 On running that command, the application server will be launched and the URL to that server will be shown to you in the command-line/terminal.
 
 #### Trying out the different Endpoints using postman
@@ -73,10 +79,14 @@ NB: You can switch the API privileges from the utilities.py file under the app f
 ## Unit Testing the Application
 * In order to run unit tests for this application, you must install pytest, pytest-cov and coverage installed on your pc or virtual environment.
 * While in the root of the project, run the command below to run the unit test.
-pytest
+
+`pytest`
+
 * To generate a coverage report of the unite tests, run the command add “—cov” to the above command.
 * That is the command will now be:
+
 `pytest –cov`
+
 ## URL Versioning
 The endpoints of this application have been versioned. The current version is one (1); i.e.: `api/v1`
 
