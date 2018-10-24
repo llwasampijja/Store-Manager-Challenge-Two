@@ -1,5 +1,6 @@
-from flask import jsonify
+from flask import Response
 from functools import wraps
+import json
 
 ACCESS = {
     'user': 0,
@@ -16,7 +17,9 @@ def store_attendant_authorised(fn):
     def wrapper(*args, **kwargs):
         role = user_role
         if role != 1:
-            return jsonify(msg='This feature is available to only the store attendants!'), 403
+            message = {"msg":"This feature is available to only the store attendants!"}
+            response = Response(json.dumps(message), status=403)
+            return response
         else:
             return fn(*args, **kwargs)
     return wrapper
@@ -27,7 +30,9 @@ def publisher_and_admin(fn):
         if author or user_role == 2:
             return fn(*args, **kwargs)
         else:
-            return jsonify(msg='This feature is available to only the admin and the individual who created it!'), 403
+            message = {"msg":"This feature is available to only the admin and the individual who created it!"}
+            response = Response(json.dumps(message), status=403)
+            return response
     return wrapper
 
 def admin_authorised(fn):
@@ -36,7 +41,9 @@ def admin_authorised(fn):
         if user_role == 2:
             return fn(*args, **kwargs)
         else:
-            return jsonify(msg='This featuer is only available to people with admin rights!'), 403
+            message = {"msg":"This featuer is only available to people with admin rights!"}
+            response = Response(json.dumps(message), status=403)
+            return response
             
     return wrapper
 
