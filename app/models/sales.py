@@ -1,8 +1,15 @@
+"""
+This module includes a "Sales" class  and different methods which can be used by other modules.
+"""
 from app.utilities import get_all_items, get_chosen_item
 class Sales():
 
     def __init__(self, **kwargs):
-
+        """
+        This constructor declares and initialises the different variables that are to
+         be used within the class as well as its objects created outside of it.
+         The "**kwargs" indicates that there are multiple "key:value" variables in the constructor.
+        """
         self.sale_index = kwargs.get("sale_index")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
@@ -12,6 +19,7 @@ class Sales():
         self.total_sale = kwargs.get("total_sale")
         self.sale_made_by = kwargs.get("sale_made_by")
         
+        """" This list is for testing purposes until a db is created"""
         self.sale_records = [
             {
             "sale_index": 1,
@@ -66,12 +74,17 @@ class Sales():
     ]
 
     def get_all_sales(self):
+        """ This method returns all the sales by the deifferent store attendants"""
         return get_all_items(self.sale_records)
 
     def get_single_sale(self, sale_index):
+        """This method returns a sale by its index (sale_index) or id """
         return get_chosen_item("sale_index", sale_index, self.sale_records)
 
     def make_sale_order(self):
+        """
+        This method is for creating a sale record. It's method is mainly used for unit testing
+        """
         sale_order_new = {
             "sale_index": 6,
             "product_name": "1 Liter Soda",

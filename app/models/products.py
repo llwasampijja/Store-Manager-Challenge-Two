@@ -1,10 +1,17 @@
+"""
+This module includes a "Products" class with methods which are rreusable from other modules.
+"""
+
 from app.utilities import get_all_items, get_chosen_item
 
-
 class Products():
+   
 
     def __init__(self, **kwargs):
-
+        """
+        This constructor declares and initialises variables that are going to be used in the class.
+        The "**kwargs" indicates that there are multiple "key:value" variables in the constructor. 
+        """
         self.product_id = kwargs.get("product_id")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
@@ -13,6 +20,7 @@ class Products():
         self.quantity = kwargs.get("stock_date")
         self.acceptable_minimum = kwargs.get("acceptable_minimum")
 
+        """Sample list of products"""
         self.products = [
             {
                 "product_id": 0,
@@ -62,12 +70,15 @@ class Products():
         ]
 
     def get_all_products(self):
+        """Return all the products in the inventory"""
         return get_all_items(self.products)
 
     def get_product_by_id(self, product_id):
+        """Returns a product by its id"""
         return get_chosen_item("product_id", product_id, self.products)
 
     def admin_add_product(self):
+        """Adds a product. This method is mainly used for unit testing"""
         product_new = {
             "product_id": "5",
             "product_name": "Nile Special",

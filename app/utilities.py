@@ -1,18 +1,35 @@
+"""
+The utilities.py module includes constants and methods 
+which can be called from any moddule within this application
+"""
 from flask import Response
 from functools import wraps
 import json
+"""
+This includes the different types of accounts for this application. 
+The "user" account is assumeed to have 0 rights. That is he/she is not logged in.
+At this instance, for testing purposes, it is assumed that the user of the application 
+is either a store_attendant or admin
+The "store_attendant" and "admin" accounts have rights to this application.
 
+"""
 ACCESS = {
     'user': 0,
     'store_attendant': 1,
     'admin': 2
 }
 
-# Test case
+"""
+This is the test case for securing urls to different users. 
+The "author" is to determine if the current user (store_attendant) is the author of a given sales record.
+"""
 user_role = ACCESS.get('admin')
 author = True
 
 def store_attendant_authorised(fn):
+    """
+    This decorator is for restricting content to only be availble to store attendants
+    """
     @wraps(fn)
     def wrapper(*args, **kwargs):
         role = user_role
@@ -25,6 +42,10 @@ def store_attendant_authorised(fn):
     return wrapper
 
 def publisher_and_admin(fn):
+    """
+    This docorator is for granting access to content which is
+     only available to admins as well as the authors of the content.
+    """
     @wraps(fn)
     def wrapper(*args, **kwargs):
         if author or user_role == 2:
@@ -36,6 +57,9 @@ def publisher_and_admin(fn):
     return wrapper
 
 def admin_authorised(fn):
+    """
+    This decorator is for restricting content to only be accessed by admins
+    """
     @wraps(fn)
     def wrapper(*args, **kwargs):
         if user_role == 2:
@@ -47,16 +71,28 @@ def admin_authorised(fn):
             
     return wrapper
 
-#method for returning items in any list. i.e, list of sales, list of products, etc.
 def get_all_items(items):
-        if len(items) == 0:
-            message = {"message": "List is Empty"}
-            return message
-        else:
-            return items
+    """
+    method for returning items in any list. i.e, list of sales, list of products, etc.
+     The purpose of this method is to refactor code and prevent similar code accross the modules.
+     When calling this method, it takes a list as an argument
+    """
+    if len(items) == 0:
+        message = {"message": "List is Empty"}
+        return message
+    else:
+        return items
 
-# method to return the value of item at given index ina list
+
 def get_chosen_item (index_label, item_index, items):
-        for item in items:
-            if item.get("{0}".format(index_label)) == item_index:
-                return item
+    """
+     method to return the value of a dictionary item of 
+     a given key value from the list of dictionaries.
+     When calling this method, it takes three arguments, 
+     that is: index label (key of the item that is being searched for, that is, sale_index, product_id, etc), 
+     item_index (the actual value corresponding to the index_label),
+      items ( a list of dictionaries from which a given item is wanted)
+    """
+    for item in items:
+        if item.get("{0}".format(index_label)) == item_index:
+            return item
