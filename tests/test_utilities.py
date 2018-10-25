@@ -25,9 +25,12 @@ class TestUtilities(unittest.TestCase):
                 "acceptable_minimum": 2
             }]
 
+        self.test_list2 = []
+
     def test_get_all_items(self):
         self.assertEqual(utilities.get_all_items(self.test_items), self.test_items)
         self.assertNotEqual(utilities.get_all_items(self.test_items), self.test_items[1])
+        self.assertEqual(utilities.get_all_items(self.test_list2), {"message": "List is Empty"})
 
     def test_get_chosen_item(self):
         self.assertEqual(utilities.get_chosen_item("product_id", 1, self.test_items), self.test_items[0])
