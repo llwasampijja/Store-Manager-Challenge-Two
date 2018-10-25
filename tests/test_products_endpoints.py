@@ -58,3 +58,4 @@ class TestProducts(unittest.TestCase):
             self.assertEqual(http_response.status_code, 202)
         else:
             self.assertEqual(http_response.status_code, 403)
+    

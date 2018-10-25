@@ -41,6 +41,7 @@ def store_attendant_authorised(fn):
             return fn(*args, **kwargs)
     return wrapper
 
+
 def publisher_and_admin(fn):
     """
     This docorator is for granting access to content which is
