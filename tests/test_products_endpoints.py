@@ -36,7 +36,6 @@ class TestProducts(unittest.TestCase):
         get_product_url = 'api/v1/products/{0}'.format(2)
         http_response = self.client.get(get_product_url, content_type='application/json')
         self.assertEqual(http_response.status_code, 200)
-        self.assertFalse(self.is_product_avaialble(32))
         self.assertTrue(self.is_product_avaialble(2))
 
     def is_product_avaialble(self, product_id):

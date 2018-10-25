@@ -3,6 +3,7 @@ This module includes a "Products" class with methods which are rreusable from ot
 """
 
 from app.utilities import get_all_items, get_chosen_item
+from app.data_stored import products_in_inventory
 
 class Products():
    
@@ -21,53 +22,7 @@ class Products():
         self.acceptable_minimum = kwargs.get("acceptable_minimum")
 
         """Sample list of products"""
-        self.products = [
-            {
-                "product_id": 0,
-                "product_name": "Tumpeco",
-                "unit_price": 500,
-                "category": "Utencils",
-                "stock_date": "11/12/2018",
-                "quantity": 50,
-                "acceptable_minimum": 10
-            },
-            {
-                "product_id": 1,
-                "product_name": "1 Dozen Spoons",
-                "unit_price": 10000,
-                "category": "Utencils",
-                "stock_date": "11/11/2018",
-                "quantity": 12,
-                "acceptable_minimum": 2
-            },
-            {
-                "product_id": 2,
-                "product_name": "500g Noodles Packet",
-                "unit_price": 1000,
-                "category": "food",
-                "stock_date": "12/12/2018",
-                "quantity": 100,
-                "acceptable_minimum": 20
-            },
-            {
-                "product_id": 3,
-                "product_name": "Smirnoff Black",
-                "unit_price": 3500,
-                "category": "alcohol",
-                "stock_date": "11/24/2018",
-                "quantity": 250,
-                "acceptable_minimum": 50
-            },
-            {
-                "product_id": 4,
-                "product_name": "1 Liter Soda",
-                "unit_price": 2000,
-                "category": "Utencils",
-                "stock_date": "11/12/2018",
-                "quantity": 288,
-                "acceptable_minimum": 72
-            }
-        ]
+        self.products = products_in_inventory
 
     def get_all_products(self):
         """Return all the products in the inventory"""

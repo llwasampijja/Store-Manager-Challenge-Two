@@ -2,6 +2,7 @@
 This module includes a "Sales" class  and different methods which can be used by other modules.
 """
 from app.utilities import get_all_items, get_chosen_item
+from app.data_stored import sale_records_stored
 class Sales():
 
     def __init__(self, **kwargs):
@@ -20,58 +21,7 @@ class Sales():
         self.sale_made_by = kwargs.get("sale_made_by")
         
         """" This list is for testing purposes until a db is created"""
-        self.sale_records = [
-            {
-            "sale_index": 1,
-            "product_name": "1 Dozen Spoons",
-            "unit_price": 10000,
-            "category": "Utencils",
-            "sale_date": "11/12/2018",
-            "sale_quantity": 1,
-            "total_sale": 10000,
-            "sale_made_by": "Dall Kased"
-            },
-            {
-            "sale_index": 2,
-            "product_name": "Tumpeco",
-            "unit_price": 500,
-            "category": "Utencils",
-            "sale_date": "11/12/2018",
-            "sale_quantity": 2,
-            "total_sale": 1000,
-            "sale_made_by": "John Snow"
-            },
-            {
-            "sale_index": 3,
-            "product_name": "500g Noodles Packet",
-            "unit_price": 1000,
-            "category": "food",
-            "sale_date": "11/12/2018",
-            "sale_quantity": 3,
-            "total_sale": 3000,
-            "sale_made_by": "No One"
-            },
-            {
-            "sale_index": 4,
-            "product_name": "Smirnoff Black",
-            "unit_price": 3500,
-            "category": "alcohol",
-            "sale_date": "11/12/2018",
-            "sale_quantity": 4,
-            "total_sale": 1400,
-            "sale_made_by": "Dall Kased"
-            },
-            {
-            "sale_index": 5,
-            "product_name": "1 Liter Soda",
-            "unit_price": 2000,
-            "category": "food",
-            "sale_date": "11/12/2018",
-            "sale_quantity": 10,
-            "total_sale": 10000,
-            "sale_made_by": "No One"
-            }
-    ]
+        self.sale_records = sale_records_stored
 
     def get_all_sales(self):
         """ This method returns all the sales by the deifferent store attendants"""

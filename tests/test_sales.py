@@ -61,9 +61,12 @@ class TestSales(unittest.TestCase):
         """
         json_new_sale = json.dumps(self.sales_obj.make_sale_order())
         add_sale_url = "api/v1/sales/add"
+        add_sale_wrong_url = "api/v1/sales/add/"
         http_response = self.client.post(add_sale_url, data = json_new_sale)
+        http_response_wrong = self.client.post(add_sale_wrong_url, data = json_new_sale)
         if user_role == 1:
             self.assertEqual(http_response.status_code, 200)
         else:
             self.assertEqual(http_response.status_code, 403)
+        self.assertEqual(http_response_wrong.status_code, 404)
         
