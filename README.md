@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two.svg?branch=development)](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two)          [![Coverage Status](https://coveralls.io/repos/github/llwasampijja/Store-Manager-Challenge-Two/badge.svg?branch=development)](https://coveralls.io/github/llwasampijja/Store-Manager-Challenge-Two?branch=development)          [![Maintainability](https://api.codeclimate.com/v1/badges/57f01820e2adec3aaf6b/maintainability)](https://codeclimate.com/github/llwasampijja/Store-Manager-Challenge-Two/maintainability)
+[![Build Status](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two.svg?branch=feature)](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two)          [![Coverage Status](https://coveralls.io/repos/github/llwasampijja/Store-Manager-Challenge-Two/badge.svg?branch=feature)](https://coveralls.io/github/llwasampijja/Store-Manager-Challenge-Two?branch=feature)          [![Maintainability](https://api.codeclimate.com/v1/badges/57f01820e2adec3aaf6b/maintainability)](https://codeclimate.com/github/llwasampijja/Store-Manager-Challenge-Two/maintainability)
 
 
 # Store Manager API Endpoints
@@ -92,4 +92,6 @@ The endpoints of this application have been versioned. The current version is on
 
 ## Deployed Version
 This API is deployed on heroku. Find it [here](https://store-manager-two.herokuapp.com/api/v1 "Store Manager on Heroku")
+
+
  The postman collections can be found [here](https://web.postman.co/collections/5689256-a13e8abe-46dc-514f-638d-38d2be40c2a2?workspace=6f3eb107-ee9c-4777-8d0e-a855b8794983)
