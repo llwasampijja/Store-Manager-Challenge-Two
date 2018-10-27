@@ -27,10 +27,13 @@ class TestSales(unittest.TestCase):
         """
         http_response = self.client.get('api/v1/sales')
         self.assertNotEqual(http_response.status_code, 404)
+        self.assertEqual(http_response.status_code, 200)
+
+        """implement after implementing user authentication
         if user_role == 2:
             self.assertEqual(http_response.status_code, 200)
         else:
-            self.assertEqual(http_response.status_code, 403)
+            self.assertEqual(http_response.status_code, 403)"""
 
     def test_get_a_sale(self):
         """
@@ -40,12 +43,15 @@ class TestSales(unittest.TestCase):
         http_response = self.client.get(sale_url, content_type='application/json')
         self.assertFalse(self.is_sale_avaialble(32))
         self.assertTrue(self.is_sale_avaialble(2))
+        self.assertEqual(http_response.status_code, 200)
+
+        """implement after implementing user authentication
         if user_role == 2:
             self.assertEqual(http_response.status_code, 200)
         elif author:
             self.assertEqual(http_response.status_code, 200)
         else:
-            self.assertEqual(http_response.status_code, 403)
+            self.assertEqual(http_response.status_code, 403)"""
 
     def is_sale_avaialble(self, sale_id):
         """"
@@ -59,14 +65,29 @@ class TestSales(unittest.TestCase):
         """
         Unit test for add_sale method
         """
-        json_new_sale = json.dumps(self.sales_obj.make_sale_order())
+        sale_order_new = {
+            "sale_index": 6,
+            "product_name": "1 Liter Soda",
+            "unit_price": 2000,
+            "category": "food",
+            "sale_date": "10/18/2018",
+            "sale_quantity": 3,
+            "total_sale": 6000,
+            "sale_made_by": "Jon Snow"
+        }
+        
+        json_new_sale = json.dumps(sale_order_new)
         add_sale_url = "api/v1/sales/add"
         add_sale_wrong_url = "api/v1/sales/add/"
-        http_response = self.client.post(add_sale_url, data = json_new_sale)
-        http_response_wrong = self.client.post(add_sale_wrong_url, data = json_new_sale)
+        http_response = self.client.post(add_sale_url, content_type='application/json', data = json_new_sale)
+        http_response_wrong = self.client.post(add_sale_wrong_url, content_type='application/json', data = json_new_sale)
+        self.assertEqual(http_response_wrong.status_code, 404)
+        self.assertEqual(http_response.status_code, 202)
+
+        """implement after implementing user authentication
         if user_role == 1:
             self.assertEqual(http_response.status_code, 200)
         else:
             self.assertEqual(http_response.status_code, 403)
         self.assertEqual(http_response_wrong.status_code, 404)
-        
+        """
