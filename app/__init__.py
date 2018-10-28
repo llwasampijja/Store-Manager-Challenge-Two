@@ -4,7 +4,9 @@ This module serves two purposes.
 2-: It contains the application factory.
 """
 from flask import Flask
-from app.views.store_attendants_view import store_attendants_bp
+from app.views.sales_view import sales_bp
+from app.views.products_view import products_bp
+
 
 def create_app(debug=True):
     """
@@ -14,5 +16,6 @@ def create_app(debug=True):
     The blue prints to the different routes are also registed to the app in this method.
     """
     app =  Flask(__name__)
-    app.register_blueprint(store_attendants_bp, url_prefix='/api/v1')
+    app.register_blueprint(sales_bp, url_prefix='/api/v1')
+    app.register_blueprint(products_bp, url_prefix='/api/v1')
     return app

@@ -30,4 +30,3 @@ def check_item_in_list(index_label, item_index, items):
         return True
     else:
         return False
-

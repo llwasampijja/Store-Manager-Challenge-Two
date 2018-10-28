@@ -17,3 +17,5 @@ class StoreAttendant():
             return get_chosen_item("user_id", user_id, self.get_all_store_attendants())
         else:
             return {"Message": "User not registered on the system"}
+
+    
