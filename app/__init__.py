@@ -8,6 +8,8 @@ from app.views.sales_view import sales_bp
 from app.views.products_view import products_bp
 from app.views.store_attendants_view import store_attendants_bp
 from app.views.pdt_category_view import pdt_category_bp
+from app.views.login_logout_view import login_logout_bp
+import os
 
 
 def create_app(debug=True):
@@ -22,4 +24,6 @@ def create_app(debug=True):
     app.register_blueprint(products_bp, url_prefix='/api/v1')
     app.register_blueprint(store_attendants_bp, url_prefix='/api/v1')
     app.register_blueprint(pdt_category_bp, url_prefix='/api/v1')
+    app.register_blueprint(login_logout_bp, url_prefix='/api/v1')
+    app.secret_key = os.urandom(12)
     return app
