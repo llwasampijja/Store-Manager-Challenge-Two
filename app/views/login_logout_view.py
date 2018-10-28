@@ -1,11 +1,17 @@
 from flask import Blueprint, Response, request, session
 from app.utilities import create_id
 from app.models.store_attendant_model import StoreAttendant
+import os
 import json
+import base64
 login_logout_bp = Blueprint("login_logout,", __name__)
 
 store_attendants_obj = StoreAttendant()
 all_store_attendants = store_attendants_obj.get_all_store_attendants()
+
+
+
+
 
 @login_logout_bp.route("/", methods=["Get"])
 def home():
@@ -18,7 +24,13 @@ def login_user():
     request_data = request.get_json()
     user_name = request_data.get("username")
     user_password = request_data.get("password")
-    session[user_name] = True
+    header = json.dumps({"typ": "JWT", "alg": "HS256"})
+    payload = json.dumps({"username": "username", "user_role": "admin"})
+    secret_key = os.urandom(12)
+    data = base64.b64encode( header ) + "." + base64.b64encode( payload )
+    hashedData = hash( data, secret_key )
+    # signature = base64urlEncode( hashedData )
+    # session[user_name] = True
     return home()
 
 @login_logout_bp.route("/auth/signup", methods=["POST"])

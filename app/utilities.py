@@ -75,6 +75,17 @@ def admin_authorised(fn):
             
     return wrapper
 
+# def admin_required(fn):
+#     @wraps(fn)
+#     def wrapper(*args, **kwargs):
+#         verify_jwt_in_request()
+#         claims = get_jwt_claims()
+#         if claims['roles'] != 'admin':
+#             return jsonify(msg='Admins only!'), 403
+#         else:
+#             return fn(*args, **kwargs)
+#     return wrapper
+
 def get_all_items(items):
     """
     method for returning items in any list. i.e, list of sales, list of products, etc.
