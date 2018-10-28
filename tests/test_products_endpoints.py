@@ -50,11 +50,23 @@ class TestProducts(unittest.TestCase):
         """
         Unit tests for the add_product method 
         """
-        json_new_product = json.dumps(self.products_obj.admin_add_product())
+        product_new = {
+            "product_id": "5",
+            "product_name": "Nile Special",
+            "unit_price": 4000,
+            "category": "alcohol",
+            "stock_date": "10/17/2018",
+            "quantity": 300,
+            "acceptable_minimum": 80
+        }
+        json_new_product = json.dumps(product_new)
         add_products_url = "api/v1/products/add"
-        http_response = self.client.post(add_products_url, data = json_new_product)
+        http_response = self.client.post(add_products_url, content_type='application/json', data = json_new_product)
+        self.assertEqual(http_response.status_code, 202)
+
+        """implement after implementing user authentication
         if user_role == 2:
             self.assertEqual(http_response.status_code, 202)
         else:
-            self.assertEqual(http_response.status_code, 403)
+            self.assertEqual(http_response.status_code, 403)"""
     

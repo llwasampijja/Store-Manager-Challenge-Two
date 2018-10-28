@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two.svg?branch=develop)](https://travis-ci.com/llwasampijja/Store-Manager-Challenge-Two)          [![Coverage Status](https://coveralls.io/repos/github/llwasampijja/Store-Manager-Challenge-Two/badge.svg?branch=develop)](https://coveralls.io/github/llwasampijja/Store-Manager-Challenge-Two?branch=develop)          [![Maintainability](https://api.codeclimate.com/v1/badges/57f01820e2adec3aaf6b/maintainability)](https://codeclimate.com/github/llwasampijja/Store-Manager-Challenge-Two/maintainability)
 
+
 # Store Manager API Endpoints
 This project is about a set of endpoints for the Store Manager App. The data used in testing the various endpoints is stored in memory using data structures and not a database.
 The endpoints include:

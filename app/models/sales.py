@@ -3,6 +3,7 @@ This module includes a "Sales" class  and different methods which can be used by
 """
 from app.utilities import get_all_items, get_chosen_item
 from app.data_stored import sale_records_stored
+from app.validity_check import check_item_in_list
 class Sales():
 
     def __init__(self, **kwargs):
@@ -29,22 +30,25 @@ class Sales():
 
     def get_single_sale(self, sale_index):
         """This method returns a sale by its index (sale_index) or id """
-        return get_chosen_item("sale_index", sale_index, self.sale_records)
+        if check_item_in_list("sale_index", sale_index, self.sale_records):
+            return get_chosen_item("sale_index", sale_index, self.sale_records)
+        else:
+            return {"Message": "Sale Record is not in the list"}
 
-    def make_sale_order(self):
-        """
-        This method is for creating a sale record. It's method is mainly used for unit testing
-        """
-        sale_order_new = {
-            "sale_index": 6,
-            "product_name": "1 Liter Soda",
-            "unit_price": 2000,
-            "category": "food",
-            "sale_date": "10/18/2018",
-            "sale_quantity": 3,
-            "total_sale": 6000,
-            "sale_made_by": "Jon Snow"
-        }
+    # def make_sale_order(self):
+    #     """
+    #     This method is for creating a sale record. It's method is mainly used for unit testing
+    #     """
+    #     sale_order_new = {
+    #         "sale_index": 6,
+    #         "product_name": "1 Liter Soda",
+    #         "unit_price": 2000,
+    #         "category": "food",
+    #         "sale_date": "10/18/2018",
+    #         "sale_quantity": 3,
+    #         "total_sale": 6000,
+    #         "sale_made_by": "Jon Snow"
+    #     }
 
-        self.sale_records.append(sale_order_new)
-        return self.sale_records
+    #     self.sale_records.append(sale_order_new)
+    #     return self.sale_records

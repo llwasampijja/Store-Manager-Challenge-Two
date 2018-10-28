@@ -94,6 +94,7 @@ def get_chosen_item (index_label, item_index, items):
      item_index (the actual value corresponding to the index_label),
       items ( a list of dictionaries from which a given item is wanted)
     """
-    for item in items:
+
+    for item in items:   
         if item.get("{0}".format(index_label)) == item_index:
             return item
