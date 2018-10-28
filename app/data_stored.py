@@ -103,5 +103,5 @@ sale_records_stored = [
 users_store_attendants = [
 ]
 
-product_categories = []
+pdt_categories = []
 
