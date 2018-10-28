@@ -52,3 +52,34 @@ def add_product():
         message = {"Error": "The product is not valid  or already in the database"}
         response = Response(json.dumps(message), content_type="application/json", status=202)
         return response
+
+@products_bp.route("/products/update/<int:product_id>", methods=["PATCH"])
+def update_product(product_id):
+    request_data = request.get_json()
+
+    updated_product = {}
+
+    if ("product_name" in request_data):
+        updated_product["product_name"] = request_data["product_name"]
+
+    if ("unit_price" in request_data):
+        updated_product["unit_price"] = request_data["unit_price"]
+
+    if ("category" in request_data):
+        updated_product["category"] = request_data["category"]
+
+    if ("stock_date" in request_data):
+        updated_product["stock_date"] = request_data["stock_date"]
+
+    if ("quantity" in request_data):
+        updated_product["quantity"] = request_data["quantity"]
+
+    if ("acceptable_minimum" in request_data):
+        updated_product["acceptable_minimum"] = request_data["acceptable_minimum"]
+
+    for product in products:
+        if product.get("product_id") == product_id:
+            product.update(updated_product)
+
+    response = Response(json.dumps(products), content_type="application/json", status=202)
+    return response

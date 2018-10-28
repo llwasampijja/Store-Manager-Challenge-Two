@@ -99,3 +99,7 @@ sale_records_stored = [
             "sale_made_by": "No One"
             }
     ]
+
+users_store_attendants = [
+]
+

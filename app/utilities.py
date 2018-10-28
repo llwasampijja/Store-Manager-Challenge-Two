@@ -5,6 +5,9 @@ which can be called from any moddule within this application
 from flask import Response
 from functools import wraps
 import json
+from app.validity_check import check_item_in_list
+import random
+
 """
 This includes the different types of accounts for this application. 
 The "user" account is assumeed to have 0 rights. That is he/she is not logged in.
@@ -98,3 +101,11 @@ def get_chosen_item (index_label, item_index, items):
     for item in items:   
         if item.get("{0}".format(index_label)) == item_index:
             return item
+
+def create_id(items):
+    user_id = random.randint(1, 1000)
+    if check_item_in_list("user_id", user_id, items):
+        create_id (items)
+    else:
+        return user_id
+    
