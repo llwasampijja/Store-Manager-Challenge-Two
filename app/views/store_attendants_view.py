@@ -26,7 +26,7 @@ def add_storeattendants():
     password_store_attendant = request_data.get("password")
     user_role_store_attendant = request_data.get("user_role")
     # request_data.update({"user_id": user_id})
-    all_store_attendants.append(request_data)
+    all_store_attendants.append(request_data) 
     database_connect_obj.insert_data_users(name_store_attendant,\
     username_store_attendant, password_store_attendant, user_role_store_attendant)
     response = Response (json.dumps(all_store_attendants), content_type="application/json", status=201)

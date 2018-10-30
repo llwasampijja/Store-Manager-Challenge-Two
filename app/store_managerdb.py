@@ -61,7 +61,7 @@ class DatabaseConnect():
         self.cursor_db.execute(sql_query)
 
     def insert_data_categories(self, category_name):
-        sql_query = "INSERT INTO categories(category_name) VALUES({})"\
+        sql_query = "INSERT INTO categories(category_name) VALUES('{}')"\
         .format( category_name)
         self.cursor_db.execute(sql_query)
 
