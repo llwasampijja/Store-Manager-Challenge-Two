@@ -82,9 +82,14 @@ class DatabaseConnect():
         category, sale_date, sale_quantity, total_sale, sale_made_by)
         self.cursor_db.execute(sql_query)
 
-    
-    def get_data_users(self):
-        pass
+    def get_data_categories(self):
+        sql_query = """SELECT * FROM categories"""
+        self.cursor_db.execute(sql_query)
+        
+    def get_data_products(self):
+        sql_query = """SELECT * FROM products"""
+        self.cursor_db.execute(sql_query)
+
     # def insert_data_products(self):
     #     sql_query = "INSERT INTO products(product_id, product)"
     #     self.cursor_db = self.db_connect.connect()
