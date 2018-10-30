@@ -84,7 +84,7 @@ def update_product(product_id):
     response = Response(json.dumps(products), content_type="application/json", status=202)
     return response
 
-@products_bp.route("/products/delete/<int:product_id>", methods=["DELETE"])
+@products_bp.route("/products/delete/{}".format('product_id'), methods=["DELETE"])
 def delete_product(product_id):
     for product in products:
         if product_id == product.get("product_id"):

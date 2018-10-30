@@ -90,12 +90,41 @@ class DatabaseConnect():
         sql_query = """SELECT * FROM products"""
         self.cursor_db.execute(sql_query)
 
+    def get_data_sales(self):
+        sql_query = """SELECT * FROM sales"""
+        self.cursor_db.execute(sql_query)
+
+    def get_data_product_byindex(self, product_id):
+        sql_query = """SELECT product_name FROM products WHERE product_id = '{}'""".format(product_id)
+        self.cursor_db.execute(sql_query)
+
+    def get_data_sale_byindex (self, sale_id):
+        sql_query = """SELECT sale_name FROM sales WHERE sale_id = '{}'""".format(sale_id)
+        self.cursor_db.execute(sql_query)
+
+    def get_data_category_byid(self, category_id):
+        sql_query = """SELECT category_name FROM categories WHERE category_id = '{}'""".format(category_id)
+        self.cursor_db.execute(sql_query)
+
+    def update_data_product(self, product_name, product_id):
+        sql_query = """UPDATE products SET product_name = '{}' WHERE \
+        product_id = '{}'""".format(product_name, product_id)
+        self.cursor_db.execute(sql_query)
+
+    def update_data_categories(self, category_name, category_id):
+        sql_query = """UPDATE categories SET category_name = '{}' WHERE category_id = '{}'""".format(category_name, category_id)
+        self.cursor_db.execute(sql_query)
+
+    def delete_data_product(self, product_id):
+        sql_query = """DELETE FROM products WHERE product_id = '{}'""".format(product_id)
+        self.cursor_db.execute(sql_query)
+
+    def delete_data_categories(self, category_id):
+        sql_query = """DELETE FROM categories WHERE category_id = '{}'""".format(category_id)
+        self.cursor_db.execute(sql_query)
+    
+
+
     # def insert_data_products(self):
     #     sql_query = "INSERT INTO products(product_id, product)"
     #     self.cursor_db = self.db_connect.connect()
-
-        
-
-
-
-
