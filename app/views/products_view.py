@@ -5,13 +5,17 @@ from app.models.products import Products
 from flask import request, Response, Blueprint
 from app.utilities import admin_authorised
 from app.validity_check import valid_product, product_not_in_db
+from app.store_managerdb import DatabaseConnect
 import json
 import uuid
 
 products_bp = Blueprint("products", __name__)
 products_obj = Products()
 products = products_obj.get_all_products()
-    
+
+database_connect_obj = DatabaseConnect()
+
+
 @products_bp.route('/products', methods=['GET'])
 def get_products():
     """This is the route for the endpoint for viewing all the products.
@@ -38,6 +42,19 @@ def add_product():
     """
     # product_id = uuid.uuid1()
     request_data = request.get_json()
+    product_name = request_data.get("product_name")
+    unit_price = request_data.get("unit_price")
+    minimum_quantity = request_data.get("minimum_quantity")
+    stock_date = request_data.get("stock_date")
+    quantity = request_data.get("quantity")
+    category_name = request_data.get("category_name")
+
+    # category_id = database_connect_obj.get_id_categories("food")
+
+    database_connect_obj.insert_data_products(product_name, unit_price, minimum_quantity, \
+    stock_date, quantity, category_name)
+
+
     # request_data.update({"product_id": product_id.int})
     if valid_product (request_data):
         if product_not_in_db(request_data, products):

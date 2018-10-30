@@ -32,8 +32,8 @@ class DatabaseConnect():
         product_name varchar UNIQUE, \
         unit_price int, \
         minimum_quantity int, \
-        stock_date TIMESTAMP, \
-        category int REFERENCES categories(category_id) ON DELETE RESTRICT,\
+        stock_date varchar, \
+        category_name int REFERENCES categories(category_id) ON DELETE RESTRICT,\
         quantity int)")
 
         self.cursor_db.execute("CREATE TABLE IF NOT EXISTS sales(\
@@ -46,14 +46,6 @@ class DatabaseConnect():
         total_sale int, \
         sale_made_by int REFERENCES app_users(user_id) ON DELETE RESTRICT)")
 
-        # self.cursor_db.close()
-        # self.db_connect.close()
-
-    def create_admin_user(self):
-        sql_query = "INSERT INTO app_users(user_name, username, password, \
-        user_role) VALUES ('Edward Army','yyyyyyyy', 'password', 'administrator')"
-        self.cursor_db.execute(sql_query)
-
     def insert_data_users(self, user_name, username, password, user_role):
         sql_query = "INSERT INTO app_users(user_name, username, password, \
         user_role) VALUES ('{}','{}', '{}', '{}')".format(user_name, \
@@ -65,15 +57,31 @@ class DatabaseConnect():
         .format( category_name)
         self.cursor_db.execute(sql_query)
 
+    def get_id_categories(self, category_name):
+        category_query = """SELECT category_id FROM categories WHERE category_name = '{}'""".format(category_name)
+        self.cursor_db.execute(category_query)
+        result = self.cursor_db.fetchone()
+        return result[0]
+
     def insert_data_products(self, product_name, unit_price,\
-        minimum_quantity, stock_date, quantity, category):
+        minimum_quantity, stock_date, quantity, category_name):
+        category_id_foreign = self.get_id_categories(category_name)
+        # category_query = """SELECT category_id FROM categories WHERE category_name = '{}'""".format(category_name)
+        # self.cursor_db.execute(category_query)
+        # result = self.cursor_db.fetchone()
+        # cat_id = int(result[0])
+        # print("yes yes: ", cat_id)
+
         sql_query = "INSERT INTO products( product_name, unit_price,\
         minimum_quantity, stock_date, quantity, category) VALUES('{}','{}','{}',\
-        '{}','{}',SELECT category_id from categories WHERE category_name='{}')".format(category,\
-         product_name, unit_price, minimum_quantity,stock_date, quantity)
+        '{}','{}', '{}')"\
+        .format(product_name, unit_price, minimum_quantity,stock_date, quantity, category_id_foreign)
         self.cursor_db.execute(sql_query)
 
-    def insert_data_sales(self, product_name, unit_price, category, sale_date, \
+
+    
+
+    def insert_data_sales(self, product_name, unit_price, category, sale_date, category_name,
         sale_quantity, total_sale, sale_made_by):
         sql_query = "INSERT INTO sales(product_name, unit_price, category, sale_date, \
         sale_quantity, total_sale, sale_made_by) VALUES(SELECT product_id from products WHERE \
