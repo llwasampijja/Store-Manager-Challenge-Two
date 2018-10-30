@@ -20,14 +20,14 @@ def get_store_attendants():
 def add_storeattendants():
     
     request_data = request.get_json()
-    user_id = str(uuid.uuid1())
+    # user_id = str(uuid.uuid1())
     name_store_attendant = request_data.get("user_name")
     username_store_attendant = request_data.get("username")
     password_store_attendant = request_data.get("password")
     user_role_store_attendant = request_data.get("user_role")
-    request_data.update({"user_id": user_id})
+    # request_data.update({"user_id": user_id})
     all_store_attendants.append(request_data)
-    database_connect_obj.insert_data_users(user_id, name_store_attendant,\
+    database_connect_obj.insert_data_users(name_store_attendant,\
     username_store_attendant, password_store_attendant, user_role_store_attendant)
     response = Response (json.dumps(all_store_attendants), content_type="application/json", status=201)
     return response

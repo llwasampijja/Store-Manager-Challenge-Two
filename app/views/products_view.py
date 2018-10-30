@@ -36,9 +36,9 @@ def add_product():
     """
     This route is for the endpoint for adding a product. It is only accessible to admins
     """
-    product_id = uuid.uuid1()
+    # product_id = uuid.uuid1()
     request_data = request.get_json()
-    request_data.update({"product_id": product_id.int})
+    # request_data.update({"product_id": product_id.int})
     if valid_product (request_data):
         if product_not_in_db(request_data, products):
             products.append(request_data)
