@@ -57,20 +57,21 @@ class DatabaseConnect():
         .format( category_name)
         self.cursor_db.execute(sql_query)
 
-    def get_id_categories(self, category_name):
+    def get_id_foreign_categories(self, category_name):
         category_query = """SELECT category_id FROM categories WHERE category_name = '{}'""".format(category_name)
         self.cursor_db.execute(category_query)
         result = self.cursor_db.fetchone()
         return result[0]
 
+    def get_id_foreign_products(self, product_name):
+        product_query = """SELECT product_id FROM categories WHERE product_name = '{}'""".format(product_name)
+        self.cursor_db.execute(product_query)
+        result = self.cursor_db.fetchone()
+        return result[0]
+
     def insert_data_products(self, product_name, unit_price,\
         minimum_quantity, stock_date, quantity, category_name):
-        category_id_foreign = self.get_id_categories(category_name)
-        # category_query = """SELECT category_id FROM categories WHERE category_name = '{}'""".format(category_name)
-        # self.cursor_db.execute(category_query)
-        # result = self.cursor_db.fetchone()
-        # cat_id = int(result[0])
-        # print("yes yes: ", cat_id)
+        category_id_foreign = self.get_id_foreign_categories(category_name)
 
         sql_query = "INSERT INTO products( product_name, unit_price,\
         minimum_quantity, stock_date, quantity, category) VALUES('{}','{}','{}',\
