@@ -64,8 +64,14 @@ class DatabaseConnect():
         return result[0]
 
     def get_id_foreign_products(self, product_name):
-        product_query = """SELECT product_id FROM categories WHERE product_name = '{}'""".format(product_name)
+        product_query = """SELECT product_id FROM products WHERE product_name = '{}'""".format(product_name)
         self.cursor_db.execute(product_query)
+        result = self.cursor_db.fetchone()
+        return result[0]
+
+    def get_id_foreign_users(self, username):
+        user_query = """SELECT user_id FROM app_users WHERE username = '{}'""".format(username)
+        self.cursor_db.execute(user_query)
         result = self.cursor_db.fetchone()
         return result[0]
 
@@ -79,17 +85,20 @@ class DatabaseConnect():
         .format(product_name, unit_price, minimum_quantity,stock_date, quantity, category_id_foreign)
         self.cursor_db.execute(sql_query)
 
-
-    
-
     def insert_data_sales(self, product_name, unit_price, category, sale_date, category_name,
         sale_quantity, total_sale, sale_made_by):
+        category_id_foreign = self.get_id_foreign_categories(category_name)
+        product_id_foreign = self.get_id_foreign_products(product_name)
+        username_id_foreign = self.get_id_foreign_users(sale_made_by)
+
+        
+
+
+
         sql_query = "INSERT INTO sales(product_name, unit_price, category, sale_date, \
-        sale_quantity, total_sale, sale_made_by) VALUES(SELECT product_id from products WHERE \
-        product_name='{}', SELECT product_id from products WHERE product_name='{}', SELECT category_id from \
-        categories WHERE category_name='{}', '{}', '{}', '{}', SELECT user_id \
-        from app_users WHERE username='{}')".format( product_name, unit_price, \
-        category, sale_date, sale_quantity, total_sale, sale_made_by)
+        sale_quantity, total_sale, sale_made_by) VALUES('{}','{}','{}', '{}', '{}', '{}','{}')"\
+        .format( product_id_foreign, product_id_foreign, category_id_foreign, sale_date, \
+        sale_quantity, total_sale, username_id_foreign)
         self.cursor_db.execute(sql_query)
 
     def get_data_categories(self):
