@@ -94,7 +94,7 @@ def add_product():
         response = Response(json.dumps(message), content_type="application/json", status=202)
         return response
 
-@products_bp.route("/products/update/<int:product_id>", methods=["PATCH"])
+@products_bp.route("/products/update/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
     request_data = request.get_json()
 
@@ -125,8 +125,9 @@ def update_product(product_id):
     response = Response(json.dumps(products), content_type="application/json", status=202)
     return response
 
-@products_bp.route("/products/delete/{}".format('product_id'), methods=["DELETE"])
+@products_bp.route("/products/<int:product_id>", methods=["DELETE"])
 def delete_product(product_id):
+    database_connect_obj.delete_data_product(product_id)
     for product in products:
         if product_id == product.get("product_id"):
             products.remove(product)
