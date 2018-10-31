@@ -40,7 +40,7 @@ def login_user():
     else:
         if username == returned_user[2] and user_password == returned_user[3]:
             print(returned_user[4])
-            acess_token  = create_access_token(identity = returned_user[4], expires_delta=datetime.timedelta(days=1))
+            acess_token  = create_access_token(identity = returned_user[4], expires_delta=datetime.timedelta(days=30))
             response = Response(json.dumps({"acess_token": acess_token}), content_type="application/json", status=202)
             message = {"Message:": "Login was successiful", "Access Token: ": acess_token}
             response = Response (json.dumps(message), content_type="application/json", status=201)

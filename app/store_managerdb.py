@@ -76,13 +76,13 @@ class DatabaseConnect():
         return result[0]
 
     def insert_data_products(self, product_name, unit_price,\
-        minimum_quantity, stock_date, quantity, category_name):
+         quantity, category_name, minimum_quantity, stock_date):
         category_id_foreign = self.get_id_foreign_categories(category_name)
 
         sql_query = "INSERT INTO products( product_name, unit_price,\
-        minimum_quantity, stock_date, quantity, category) VALUES('{}','{}','{}',\
+         quantity, category_name, minimum_quantity, stock_date) VALUES('{}','{}','{}',\
         '{}','{}', '{}')"\
-        .format(product_name, unit_price, minimum_quantity,stock_date, quantity, category_id_foreign)
+        .format(product_name, unit_price, quantity, category_id_foreign, minimum_quantity, stock_date)
         self.cursor_db.execute(sql_query)
 
     def insert_data_sales(self, product_name, unit_price, category, sale_date, category_name,
@@ -172,6 +172,12 @@ class DatabaseConnect():
 
     def category_exist_not(self, category_name):
         sql_query = """SELECT * FROM categories WHERE category_name = '{}'""".format(category_name)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
+
+    def product_exist_not(self, product_name):
+        sql_query = """SELECT * FROM products WHERE product_name = '{}'""".format(product_name)
         self.cursor_db.execute(sql_query)
         result = self.cursor_db.fetchall()
         return result
