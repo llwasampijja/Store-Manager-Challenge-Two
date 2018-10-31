@@ -157,6 +157,14 @@ class DatabaseConnect():
     def delete_data_categories(self, category_id):
         sql_query = """DELETE FROM categories WHERE category_id = '{}'""".format(category_id)
         self.cursor_db.execute(sql_query)
+
+    def verify_userlogin(self, username):
+        sql_query = """SELECT * FROM app_users WHERE username = '{}'""".format(username)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchone()
+        return result
+
+
     
 
 

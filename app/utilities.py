@@ -7,6 +7,7 @@ from functools import wraps
 import json
 from app.validity_check import check_item_in_list
 import random
+from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, get_jwt_claims, get_jwt_identity
 
 """
 This includes the different types of accounts for this application. 
@@ -35,13 +36,22 @@ def store_attendant_authorised(fn):
     """
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        role = user_role
-        if role != 1:
+        verify_jwt_in_request()
+        current_user = get_jwt_identity()
+        claims = get_jwt_claims()
+        if claims['role'] != 'admin':
             message = {"msg":"This feature is available to only the store attendants!"}
             response = Response(json.dumps(message), status=403)
             return response
         else:
             return fn(*args, **kwargs)
+        # role = user_role
+        # if role != 1:
+        #     message = {"msg":"This feature is available to only the store attendants!"}
+        #     response = Response(json.dumps(message), status=403)
+        #     return response
+        # else:
+        #     return fn(*args, **kwargs)
     return wrapper
 
 
@@ -66,12 +76,21 @@ def admin_authorised(fn):
     """
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        if user_role == 2:
+        verify_jwt_in_request()
+        user_identity = get_jwt_identity()
+        if user_identity == 'admin':
             return fn(*args, **kwargs)
         else:
-            message = {"msg":"This featuer is only available to people with admin rights!"}
+            message = {"msg":"This feature is available to only the store attendants!"}
             response = Response(json.dumps(message), status=403)
             return response
+
+        # if user_role == 2:
+        #     return fn(*args, **kwargs)
+        # else:
+        #     message = {"msg":"This featuer is only available to people with admin rights!"}
+        #     response = Response(json.dumps(message), status=403)
+        #     return response
             
     return wrapper
 

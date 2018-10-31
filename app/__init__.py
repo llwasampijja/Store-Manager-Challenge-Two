@@ -29,7 +29,7 @@ def create_app(debug=True):
     app.secret_key = os.urandom(12)
 
 
-    app.config['JWT_SECRET_KEY'] = app.secret_key  # Change this!
+    app.config['JWT_SECRET_KEY'] = app.secret_key
     jwt_manager = JWTManager()
     jwt_manager.init_app(app)
     return app

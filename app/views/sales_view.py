@@ -21,21 +21,7 @@ def get_sales():
     this is the route to the endpoint of getting all the sales made by the store attendants. 
     It is available to only the administrator
     """
-    data_from_db = database_connect_obj.get_data_sales()
-    # dict_product = {}
-    list_sales = []
-    for x in data_from_db:
-        dict_sale = {
-            "sale_id": x[0],
-            "product_name": x[1],
-            "unit_price": x[2],
-            "category": x[3],
-            "sale_date": str(x[4]),
-            "sale_quantity": x[5],
-            "total_sale": x[6],
-            "sale_made_by": x[7]
-        }
-        list_sales.append(dict_sale)
+    list_sales = get_database_sales()
     response = Response(json.dumps(list_sales), content_type="application/json", status=200) 
     return response
 
@@ -80,12 +66,23 @@ def add_sale():
     database_connect_obj.insert_data_sales(product_name, unit_price, category_name, sale_date, category_name,
         sale_quantity, total_sale, sale_made_by)
 
+    list_sales = get_database_sales()
+    response = Response(json.dumps(list_sales), content_type="application/json", status=200)
+    return response
 
-    if valid_sale(request_data):
-        all_sales.append(request_data)
-        response = Response(json.dumps(all_sales), content_type="application/json", status=202)
-        return response
-    else:
-        message = {"Error": "The sale record is not valid"}
-        response = Response(json.dumps(message), content_type="application/json", status=202)
-        return response
+def get_database_sales():
+    data_from_db = database_connect_obj.get_data_sales()
+    list_sales = []
+    for x in data_from_db:
+        dict_sale = {
+        "sale_id": x[0],
+        "product_name": x[1],
+        "unit_price": x[2],
+        "category": x[3],
+        "sale_date": str(x[4]),
+        "sale_quantity": x[5],
+        "total_sale": x[6],
+        "sale_made_by": x[7]
+        }
+        list_sales.append(dict_sale)
+    return list_sales
