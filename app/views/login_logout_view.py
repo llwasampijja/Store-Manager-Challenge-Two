@@ -4,6 +4,12 @@ from app.models.store_attendant_model import StoreAttendant
 import os
 import json
 import base64
+
+from flask_jwt_extended import (
+    JWTManager, verify_jwt_in_request, create_access_token,
+    get_jwt_claims
+)
+
 login_logout_bp = Blueprint("login_logout,", __name__)
 
 store_attendants_obj = StoreAttendant()
