@@ -32,7 +32,7 @@ class DatabaseConnect():
         product_name varchar UNIQUE, \
         unit_price int, \
         minimum_quantity int, \
-        stock_date varchar, \
+        stock_date TIMESTAMP, \
         category_name int REFERENCES categories(category_id) ON DELETE RESTRICT,\
         quantity int)")
 
@@ -110,6 +110,8 @@ class DatabaseConnect():
     def get_data_products(self):
         sql_query = """SELECT * FROM products"""
         self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
 
     def get_data_sales(self):
         sql_query = """SELECT * FROM sales"""

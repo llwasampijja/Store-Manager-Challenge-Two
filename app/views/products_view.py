@@ -20,7 +20,21 @@ database_connect_obj = DatabaseConnect()
 def get_products():
     """This is the route for the endpoint for viewing all the products.
      It's accessible to both admin and the store attendants"""
-    response = Response(json.dumps(products), content_type="application/json", status=200) 
+    data_from_db = database_connect_obj.get_data_products()
+    dict_product = {}
+    list_products = []
+    for product in data_from_db:
+        dict_product = {
+            "product_id": product[0],
+            "product_name": product[1],
+            "unit_price": product[2],
+            "category": product[3],
+            "stock_date": str(product[4]),
+            "quantity": product[5],
+            "acceptable_minimum": product[6]
+        }
+        list_products.append(dict_product)
+    response = Response(json.dumps(list_products), content_type="application/json", status=200) 
     return response
 
 # GET a product by its id
@@ -30,7 +44,17 @@ def get_a_product(product_id):
     This route is for the endpoint for getting a product by its id. It is also accessible to 
     both admin and the store attendants.
     """
-    response = Response(json.dumps(products_obj.get_product_by_id(product_id)), content_type="application/json", status=200)
+    data_from_db = database_connect_obj.get_data_product_byid(product_id)
+    dict_product = {
+            "product_id": data_from_db[0],
+            "product_name": data_from_db[1],
+            "unit_price": data_from_db[2],
+            "category": data_from_db[3],
+            "stock_date": str(data_from_db[4]),
+            "quantity": data_from_db[5],
+            "acceptable_minimum": data_from_db[6]
+        }
+    response = Response(json.dumps(dict_product), content_type="application/json", status=200)
     return response
 
 
