@@ -137,31 +137,13 @@ class DatabaseConnect():
         result = self.cursor_db.fetchone()
         return result
 
-    def update_data_product(self, product_name, product_id):
-        sql_query = """UPDATE products SET product_name = '{}' WHERE \
-        product_id = '{}'""".format(product_name, product_id)
-        self.cursor_db.execute(sql_query)
-
-    def update_data_product_0(self, product_details, product_id):
-        # if "product_name" in product_details
-        sql_query = """UPDATE products SET product_name = '{}' WHERE \
-        product_id = '{}'""".format(product_name, product_id)
-
-        sql_query = """UPDATE products SET unit_price = '{}' WHERE \
-        product_id = '{}'""".format(unit_price, product_id)
-
-        sql_query = """UPDATE products SET minimum_quantity = '{}' WHERE \
-        product_id = '{}'""".format(minimum_quantity, product_id)
-
-        sql_query = """UPDATE products SET stock_date = '{}' WHERE \
-        product_id = '{}'""".format(stock_date, product_id)
-
-        sql_query = """UPDATE products SET quantity = '{}' WHERE \
-        product_id = '{}'""".format(quantity, product_id)
-
-        sql_query = """UPDATE products SET category_name = '{}' WHERE \
-        product_id = '{}'""".format(category_name, product_id)
-
+    def update_data_product(self, product_name, unit_price,\
+        minimum_quantity, stock_date, quantity, category_name, product_id):
+        category_id_foreign = self.get_id_foreign_categories(category_name)
+        sql_query = """UPDATE products SET product_name = '{}', unit_price = '{}',\
+         minimum_quantity = '{}', stock_date = '{}', quantity = '{}', category = '{}'  WHERE \
+        product_id = '{}'""".format(product_name, unit_price,\
+        minimum_quantity, stock_date, quantity, category_id_foreign, product_id)
         self.cursor_db.execute(sql_query)
 
     def update_data_categories(self, category_name, category_id):

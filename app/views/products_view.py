@@ -94,33 +94,20 @@ def add_product():
         response = Response(json.dumps(message), content_type="application/json", status=202)
         return response
 
-@products_bp.route("/products/update/<int:product_id>", methods=["PUT"])
+@products_bp.route("/products/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
     request_data = request.get_json()
+    product_name = request_data.get("product_name")
+    unit_price = request_data.get("unit_price")
+    minimum_quantity = request_data.get("minimum_quantity")
+    stock_date = request_data.get("stock_date")
+    quantity = request_data.get("quantity")
+    category_name = request_data.get("category_name")
 
-    updated_product = {}
+    database_connect_obj.update_data_product(product_name, unit_price,\
+        minimum_quantity, stock_date, quantity, category_name, product_id)
 
-    if ("product_name" in request_data):
-        updated_product["product_name"] = request_data["product_name"]
 
-    if ("unit_price" in request_data):
-        updated_product["unit_price"] = request_data["unit_price"]
-
-    if ("category" in request_data):
-        updated_product["category"] = request_data["category"]
-
-    if ("stock_date" in request_data):
-        updated_product["stock_date"] = request_data["stock_date"]
-
-    if ("quantity" in request_data):
-        updated_product["quantity"] = request_data["quantity"]
-
-    if ("acceptable_minimum" in request_data):
-        updated_product["acceptable_minimum"] = request_data["acceptable_minimum"]
-
-    for product in products:
-        if product.get("product_id") == product_id:
-            product.update(updated_product)
 
     response = Response(json.dumps(products), content_type="application/json", status=202)
     return response
