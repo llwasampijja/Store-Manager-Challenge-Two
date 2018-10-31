@@ -32,19 +32,41 @@ def login_user():
     request_data = request.get_json()
     username = request_data.get("username")
     user_password = request_data.get("password")
-
-    # user_identity = json.dumps({"username": username, "role": "attendant"})
-    acess_token  = create_access_token(identity = "admin", expires_delta=datetime.timedelta(days=1))
-    response = Response(json.dumps({"acess_token": acess_token}), content_type="application/json", status=202)
-    return response
+    returned_user = database_connect_obj.verify_userlogin(username)
+    if len(returned_user)==0:
+        message = {"Message:": "User Not registered on the system"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
+    else:
+        if username == returned_user[2] and user_password == returned_user[3]:
+            print(returned_user[4])
+            acess_token  = create_access_token(identity = returned_user[4], expires_delta=datetime.timedelta(days=1))
+            response = Response(json.dumps({"acess_token": acess_token}), content_type="application/json", status=202)
+            message = {"Message:": "Login was successiful", "Access Token: ": acess_token}
+            response = Response (json.dumps(message), content_type="application/json", status=201)
+            return response
+        else:
+            message = {"Message:": "Entered wrong password"}
+            response = Response (json.dumps(message), content_type="application/json", status=401)
+            return response
 
 @login_logout_bp.route("/auth/signup", methods=["POST"])
 @admin_authorised
 def signup_user():
     request_data = request.get_json()
-    user_id = create_id(all_store_attendants)
-    request_data.update({"user_id": user_id})
-    all_store_attendants.append(request_data)
-    response = Response (json.dumps(all_store_attendants), content_type="application/json", status=201)
-    return response
+    user_name = request_data.get("user_name")
+    username = request_data.get("username")
+    password = request_data.get("password")
+    user_role = request_data.get("user_role")
+    returned_user = list(database_connect_obj.user_exist_not(username))
+
+    if len(returned_user)==0:
+        message = {"Message:": "User Successifully Added"}
+        database_connect_obj.insert_data_users(user_name, username, password, user_role)
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
+    else:
+        message = {"Message:": "User User Already Exists"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
 

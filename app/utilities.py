@@ -37,21 +37,13 @@ def store_attendant_authorised(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
-        current_user = get_jwt_identity()
-        claims = get_jwt_claims()
-        if claims['role'] != 'admin':
+        user_identity = get_jwt_identity()
+        if user_identity != 'attendant':
             message = {"msg":"This feature is available to only the store attendants!"}
-            response = Response(json.dumps(message), status=403)
+            response = Response(json.dumps(message), content_type="application/json", status=403)
             return response
         else:
             return fn(*args, **kwargs)
-        # role = user_role
-        # if role != 1:
-        #     message = {"msg":"This feature is available to only the store attendants!"}
-        #     response = Response(json.dumps(message), status=403)
-        #     return response
-        # else:
-        #     return fn(*args, **kwargs)
     return wrapper
 
 
@@ -66,7 +58,7 @@ def publisher_and_admin(fn):
             return fn(*args, **kwargs)
         else:
             message = {"msg":"This feature is available to only the admin and the individual who created it!"}
-            response = Response(json.dumps(message), status=403)
+            response = Response(json.dumps(message), content_type="application/json", status=403)
             return response
     return wrapper
 
@@ -81,29 +73,10 @@ def admin_authorised(fn):
         if user_identity == 'admin':
             return fn(*args, **kwargs)
         else:
-            message = {"msg":"This feature is available to only the store attendants!"}
-            response = Response(json.dumps(message), status=403)
+            message = {"msg":"This feature is available to only the Admins"}
+            response = Response(json.dumps(message), content_type="application/json", status=403)
             return response
-
-        # if user_role == 2:
-        #     return fn(*args, **kwargs)
-        # else:
-        #     message = {"msg":"This featuer is only available to people with admin rights!"}
-        #     response = Response(json.dumps(message), status=403)
-        #     return response
-            
     return wrapper
-
-# def admin_required(fn):
-#     @wraps(fn)
-#     def wrapper(*args, **kwargs):
-#         verify_jwt_in_request()
-#         claims = get_jwt_claims()
-#         if claims['roles'] != 'admin':
-#             return jsonify(msg='Admins only!'), 403
-#         else:
-#             return fn(*args, **kwargs)
-#     return wrapper
 
 def get_all_items(items):
     """

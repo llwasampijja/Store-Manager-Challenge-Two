@@ -40,7 +40,7 @@ class DatabaseConnect():
         sales_id serial PRIMARY KEY,\
         product_name int REFERENCES products(product_id) ON DELETE RESTRICT,\
         unit_price  int REFERENCES products(product_id) ON DELETE RESTRICT,\
-        category  int REFERENCES categories(category_id) ON DELETE RESTRICT,\
+        category_name  int REFERENCES categories(category_id) ON DELETE RESTRICT,\
         sale_date TIMESTAMP, \
         sale_quantity int, \
         total_sale int, \
@@ -162,6 +162,18 @@ class DatabaseConnect():
         sql_query = """SELECT * FROM app_users WHERE username = '{}'""".format(username)
         self.cursor_db.execute(sql_query)
         result = self.cursor_db.fetchone()
+        return result
+
+    def user_exist_not(self, username):
+        sql_query = """SELECT * FROM app_users WHERE username = '{}'""".format(username)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
+
+    def category_exist_not(self, category_name):
+        sql_query = """SELECT * FROM categories WHERE category_name = '{}'""".format(category_name)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
         return result
 
 

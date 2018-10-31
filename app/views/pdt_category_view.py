@@ -3,6 +3,7 @@ import json
 from app.models.pdt_category_model import PdtCategory
 from app.utilities import create_id
 from app.store_managerdb import DatabaseConnect
+from app.utilities import admin_authorised
 
 pdt_category_bp = Blueprint("pdt_category", __name__)
 
@@ -23,16 +24,22 @@ def get_category(category_id):
     response = Response(json.dumps(dict_category), content_type="application/json", status=200)
     return response
 
-@pdt_category_bp.route("/categories/add", methods=["POST"])
+@pdt_category_bp.route("/categories", methods=["POST"])
+@admin_authorised
 def add_category():
     request_data = request.get_json()
-
     category_name = request_data.get("category_name")
-    database_connect_obj.insert_data_categories(category_name)
-    pdt_categories.append(request_data)
-    list_categories = get_db_categories()
-    response = Response(json.dumps(list_categories), content_type="application/json", status=200)
-    return response
+    returned_category= list(database_connect_obj.category_exist_not(category_name))
+
+    if len(returned_category)==0:
+        message = {"Message:": "Category Successifully Added"}
+        database_connect_obj.insert_data_categories(category_name)
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
+    else:
+        message = {"Message:": "Category Already Exists"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
 
 def get_db_categories():
     data_from_db = database_connect_obj.get_data_categories()
