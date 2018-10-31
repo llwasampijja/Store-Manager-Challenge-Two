@@ -12,12 +12,20 @@ database_connect_obj = DatabaseConnect()
 
 @pdt_category_bp.route("/categories", methods=["GET"])
 def get_all_product_categories():
-    response = Response(json.dumps(pdt_categories), content_type="application/json", status=200)
+    data_from_db = database_connect_obj.get_data_categories()
+    dict_category = {}
+    list_categories = []
+    for x in data_from_db:
+        dict_category = {"product_id": x[0], "category_name": x[1]}
+        list_categories.append(dict_category)
+    response = Response(json.dumps(list_categories), content_type="application/json", status=200)
     return response
 
 @pdt_category_bp.route("/categories/<int:category_id>", methods=["GET"])
 def get_category(category_id):
-    response = Response(json.dumps(pdt_category_obj.get_category_by_id(category_id)), content_type="application/json", status=200)
+    data_from_db = database_connect_obj.get_data_category_byid(category_id)
+    dict_category = {"product_id": data_from_db[0], "category_name": data_from_db[1]}
+    response = Response(json.dumps(dict_category), content_type="application/json", status=200)
     return response
 
 @pdt_category_bp.route("/categories/add", methods=["POST"])

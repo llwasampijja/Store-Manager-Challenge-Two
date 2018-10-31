@@ -104,6 +104,8 @@ class DatabaseConnect():
     def get_data_categories(self):
         sql_query = """SELECT * FROM categories"""
         self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
         
     def get_data_products(self):
         sql_query = """SELECT * FROM products"""
@@ -112,18 +114,26 @@ class DatabaseConnect():
     def get_data_sales(self):
         sql_query = """SELECT * FROM sales"""
         self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
 
-    def get_data_product_byindex(self, product_id):
-        sql_query = """SELECT product_name FROM products WHERE product_id = '{}'""".format(product_id)
+    def get_data_product_byid(self, product_id):
+        sql_query = """SELECT * FROM products WHERE product_id = '{}'""".format(product_id)
         self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchone()
+        return result
 
-    def get_data_sale_byindex (self, sale_id):
-        sql_query = """SELECT sale_name FROM sales WHERE sale_id = '{}'""".format(sale_id)
+    def get_data_sale_byid (self, sale_id):
+        sql_query = """SELECT * FROM sales WHERE sales_id = '{}'""".format(sale_id)
         self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchone()
+        return result
 
     def get_data_category_byid(self, category_id):
-        sql_query = """SELECT category_name FROM categories WHERE category_id = '{}'""".format(category_id)
+        sql_query = """SELECT * FROM categories WHERE category_id = '{}'""".format(category_id)
         self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchone()
+        return result
 
     def update_data_product(self, product_name, product_id):
         sql_query = """UPDATE products SET product_name = '{}' WHERE \

@@ -12,7 +12,7 @@ class Sales():
          be used within the class as well as its objects created outside of it.
          The "**kwargs" indicates that there are multiple "key:value" variables in the constructor.
         """
-        self.sale_index = kwargs.get("sale_index")
+        self.sale_id = kwargs.get("sale_id")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
         self.category = kwargs.get("category")
@@ -28,10 +28,10 @@ class Sales():
         """ This method returns all the sales by the deifferent store attendants"""
         return get_all_items(self.sale_records)
 
-    def get_single_sale(self, sale_index):
-        """This method returns a sale by its index (sale_index) or id """
-        if check_item_in_list("sale_index", sale_index, self.sale_records):
-            return get_chosen_item("sale_index", sale_index, self.sale_records)
+    def get_single_sale(self, sale_id):
+        """This method returns a sale by its id (sale_id) or id """
+        if check_item_in_list("sale_id", sale_id, self.sale_records):
+            return get_chosen_item("sale_id", sale_id, self.sale_records)
         else:
             return {"Message": "Sale Record is not in the list"}
 
@@ -40,7 +40,7 @@ class Sales():
     #     This method is for creating a sale record. It's method is mainly used for unit testing
     #     """
     #     sale_order_new = {
-    #         "sale_index": 6,
+    #         "sale_id": 6,
     #         "product_name": "1 Liter Soda",
     #         "unit_price": 2000,
     #         "category": "food",

@@ -57,7 +57,7 @@ class TestSales(unittest.TestCase):
         """"
         Check if a sale record in the sales list. This method is used to create a unit test for sale not available.
         """
-        if any(sale_id == item.get("sale_index") for item in self.sales):
+        if any(sale_id == item.get("sale_id") for item in self.sales):
             return True
         return False
 
@@ -66,7 +66,7 @@ class TestSales(unittest.TestCase):
         Unit test for add_sale method
         """
         sale_order_new = {
-            "sale_index": 6,
+            "sale_id": 6,
             "product_name": "1 Liter Soda",
             "unit_price": 2000,
             "category": "food",
