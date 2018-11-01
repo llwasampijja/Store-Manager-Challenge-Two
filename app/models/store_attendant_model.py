@@ -18,4 +18,13 @@ class StoreAttendant():
         else:
             return {"Message": "User not registered on the system"}
 
+    def check_empty_fields(self, user_id_store_attendat, name_store_attendant, \
+        username_store_attendant, password_store_attendant, user_role_store_attendant):
+        if self.user_id_store_attendat or self.name_store_attendant or self.username_store_attendant \
+            or self.password_store_attendant or self.user_role_store_attendant == "":
+            return True
+        else:
+            return False
+
+
     

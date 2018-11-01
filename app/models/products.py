@@ -17,7 +17,7 @@ class Products():
         self.product_id = kwargs.get("product_id")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
-        self.category = kwargs.get("category")
+        self.category_name = kwargs.get("category_name")
         self.stock_date = kwargs.get("stock_date")
         self.quantity = kwargs.get("stock_date")
         self.acceptable_minimum = kwargs.get("acceptable_minimum")
@@ -28,6 +28,12 @@ class Products():
     def get_all_products(self):
         """Return all the products in the inventory"""
         return get_all_items(self.products)
+
+    def check_empty_fields(self, product_name, unit_price, category_name, quantity, acceptable_minimum):
+        if not product_name or not unit_price or not category_name or not quantity or not acceptable_minimum:
+            return False
+        else:
+            return True
 
     def get_product_by_id(self, product_id):
         """Returns a product by its id"""

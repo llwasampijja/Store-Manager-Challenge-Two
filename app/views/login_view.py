@@ -1,8 +1,9 @@
 from flask import Blueprint, Response, request, session
-from app.utilities import create_id
+from app.utilities import create_id, is_json
 from app.models.store_attendant_model import StoreAttendant
 from app.utilities import admin_authorised
 from app.store_managerdb import DatabaseConnect
+from app.models.app_user import AppUser
 import os
 import json
 import base64
@@ -14,20 +15,20 @@ from flask_jwt_extended import (
     get_jwt_claims, jwt_required
 )
 
-login_logout_bp = Blueprint("login_logout,", __name__)
+login_bp = Blueprint("login_logout,", __name__)
 
-store_attendants_obj = StoreAttendant()
-all_store_attendants = store_attendants_obj.get_all_store_attendants()
+app_user_obj = AppUser()
+# all_store_attendants = store_attendants_obj.get_all_store_attendants()
 database_connect_obj = DatabaseConnect()
 
 
-@login_logout_bp.route("/", methods=["Get"])
+@login_bp.route("/", methods=["Get"])
 def home():
     if "username" in session:
         return Response(json.dumps({"message": "Logged in"}), content_type="application/json", status=202)
     return Response(json.dumps({"message": "not logged in"}), content_type="application/json", status=202) 
 
-@login_logout_bp.route("/auth/login", methods=["GET", "POST"])
+@login_bp.route("/auth/login", methods=["GET", "POST"])
 def login_user():
     request_data = request.get_json()
     username = request_data.get("username")
@@ -50,7 +51,7 @@ def login_user():
             response = Response (json.dumps(message), content_type="application/json", status=401)
             return response
 
-@login_logout_bp.route("/auth/signup", methods=["POST"])
+@login_bp.route("/auth/signup", methods=["POST"])
 @admin_authorised
 def signup_user():
     request_data = request.get_json()
@@ -59,6 +60,10 @@ def signup_user():
     password = request_data.get("password")
     user_role = request_data.get("user_role")
     returned_user = list(database_connect_obj.user_exist_not(username))
+    if not app_user_obj.check_role(user_role):
+        message = {"Message:": "Entered a non-existant role"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
 
     if len(returned_user)==0:
         message = {"Message:": "User Successifully Added"}
@@ -66,7 +71,7 @@ def signup_user():
         response = Response (json.dumps(message), content_type="application/json", status=201)
         return response
     else:
-        message = {"Message:": "User User Already Exists"}
+        message = {"Message:": "The User Already Exists"}
         response = Response (json.dumps(message), content_type="application/json", status=201)
         return response
 

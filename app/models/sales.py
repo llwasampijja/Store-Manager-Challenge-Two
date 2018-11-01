@@ -15,7 +15,7 @@ class Sales():
         self.sale_id = kwargs.get("sale_id")
         self.product_name = kwargs.get("product_name")
         self.unit_price = kwargs.get("unit_price")
-        self.category = kwargs.get("category")
+        self.category_name = kwargs.get("category_name")
         self.sale_date = kwargs.get("sale_date")
         self.sale_quantity = kwargs.get("sale_quantity")
         self.total_sale = kwargs.get("total_sale")
@@ -35,20 +35,12 @@ class Sales():
         else:
             return {"Message": "Sale Record is not in the list"}
 
-    # def make_sale_order(self):
-    #     """
-    #     This method is for creating a sale record. It's method is mainly used for unit testing
-    #     """
-    #     sale_order_new = {
-    #         "sale_id": 6,
-    #         "product_name": "1 Liter Soda",
-    #         "unit_price": 2000,
-    #         "category": "food",
-    #         "sale_date": "10/18/2018",
-    #         "sale_quantity": 3,
-    #         "total_sale": 6000,
-    #         "sale_made_by": "Jon Snow"
-    #     }
 
-    #     self.sale_records.append(sale_order_new)
-    #     return self.sale_records
+    def check_empty_fields(self, product_name, unit_price, category_name, \
+        sale_quantity, sale_made_by):
+        if not product_name or not unit_price or not category_name or not\
+            sale_made_by:
+            return False
+        else:
+            return True
+

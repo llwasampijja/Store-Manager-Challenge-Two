@@ -1,5 +1,7 @@
 def valid_product(request_object):
-    if "product_id" in request_object and "product_name" in request_object and "unit_price" in request_object and "category" in request_object and "stock_date" in request_object and "quantity" in request_object and "acceptable_minimum" in request_object:
+    if "product_name" in request_object and "unit_price" in request_object and\
+        "category_name" in request_object and "quantity" in request_object and \
+        "acceptable_minimum" in request_object:
         return True
     else:
         return False
@@ -19,7 +21,13 @@ def product_available(request_object, data_base_products):
     else:
         return False
 
-def valid_sale(request_object):
+def invalid_sale(request_object):
+    if "sale_index" in request_object and "product_name" in request_object and "unit_price" in request_object and "category" in request_object and "sale_date" in request_object and "sale_quantity" in request_object and "total_sale" in request_object and "sale_made_by" in request_object:
+        return False
+    else:
+        return True
+
+def empty_sale(request_object):
     if "sale_index" in request_object and "product_name" in request_object and "unit_price" in request_object and "category" in request_object and "sale_date" in request_object and "sale_quantity" in request_object and "total_sale" in request_object and "sale_made_by" in request_object:
         return True
     else:

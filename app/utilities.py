@@ -111,5 +111,12 @@ def create_id(items):
         create_id (items)
     else:
         return user_id
+
+def is_json(myjson):
+    try:
+        json.loads(myjson)
+    except ValueError:
+        return False
+    return True
     
     

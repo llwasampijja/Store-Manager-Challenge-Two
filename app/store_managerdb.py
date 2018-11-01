@@ -58,7 +58,8 @@ class DatabaseConnect():
         self.cursor_db.execute(sql_query)
 
     def get_id_foreign_categories(self, category_name):
-        category_query = """SELECT category_id FROM categories WHERE category_name = '{}'""".format(category_name)
+        category_query = """SELECT category_id FROM categories WHERE category_name =\
+         '{}'""".format(category_name)
         self.cursor_db.execute(category_query)
         result = self.cursor_db.fetchone()
         return result[0]
@@ -139,12 +140,25 @@ class DatabaseConnect():
 
     def update_data_product(self, product_name, unit_price,\
         minimum_quantity, stock_date, quantity, category_name, product_id):
-        category_id_foreign = self.get_id_foreign_categories(category_name)
+        print("this is the  trest: ")
+        category_id_foreign = self.get_id_foreign_categories("food")
+        
         sql_query = """UPDATE products SET product_name = '{}', unit_price = '{}',\
-         minimum_quantity = '{}', stock_date = '{}', quantity = '{}', category = '{}'  WHERE \
+         minimum_quantity = '{}', stock_date = '{}', quantity = '{}', category_name = '{}'  WHERE \
         product_id = '{}'""".format(product_name, unit_price,\
         minimum_quantity, stock_date, quantity, category_id_foreign, product_id)
         self.cursor_db.execute(sql_query)
+
+
+    # def update_data_product2(self, product_name, unit_price,\
+    #      quantity, category_name, minimum_quantity, stock_date):
+    #     category_id_foreign = self.get_id_foreign_categories("food")
+
+    #     sql_query = "UPDATE products SET ( product_name, unit_price,\
+    #      quantity, category_name, minimum_quantity, stock_date) VALUES('{}','{}','{}',\
+    #     '{}','{}', '{}')"\
+    #     .format(product_name, unit_price, quantity, category_id_foreign, minimum_quantity, stock_date)
+    #     self.cursor_db.execute(sql_query)
 
     def update_data_categories(self, category_name, category_id):
         sql_query = """UPDATE categories SET category_name = '{}' WHERE category_id = '{}'""".format(category_name, category_id)
@@ -178,6 +192,12 @@ class DatabaseConnect():
 
     def product_exist_not(self, product_name):
         sql_query = """SELECT * FROM products WHERE product_name = '{}'""".format(product_name)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
+
+    def product_id_invalid(self):
+        sql_query = """SELECT product_id FROM products"""
         self.cursor_db.execute(sql_query)
         result = self.cursor_db.fetchall()
         return result
