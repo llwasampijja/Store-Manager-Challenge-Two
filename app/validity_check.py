@@ -21,7 +21,14 @@ def product_available(request_object, data_base_products):
     else:
         return False
 
-def invalid_sale(request_object):
+def invalid_user(request_object):
+    if "user_name" in request_object and "username" in request_object and \
+        "password" in request_object and "user_role" in request_object :
+        return False
+    else:
+        return True
+
+def invalid_sale (request_object):
     if "sale_index" in request_object and "product_name" in request_object and "unit_price" in request_object and "category" in request_object and "sale_date" in request_object and "sale_quantity" in request_object and "total_sale" in request_object and "sale_made_by" in request_object:
         return False
     else:

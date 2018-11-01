@@ -26,7 +26,7 @@ def get_sales():
     return response
 
 @sales_bp.route('/sales/<int:sale_id>' , methods=['GET'])
-# @publisher_and_admin
+@admin_authorised
 def get_a_sale(sale_id):
     """
     This route is for the endpoint for getting a sale by its sale_id or id.
@@ -47,7 +47,7 @@ def get_a_sale(sale_id):
     return response
 
 @sales_bp.route('/sales', methods=['POST'])  
-# @store_attendant_authorised  
+@store_attendant_authorised  
 def add_sale():
     """
     This route is for the endpoint for adding products in the inventory.

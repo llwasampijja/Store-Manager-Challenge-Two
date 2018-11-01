@@ -8,18 +8,9 @@ class AppUser():
         self.password = kwargs.get("password")
         self.user_role = kwargs.get("user_role")
 
-    def get_all_users(self, users):
-        return users
 
-    def get_user_by_id(self, user_id, users):
-        if check_item_in_list("user_id", user_id, users):
-            return get_chosen_item("user_id", user_id, users)
-        else:
-            return {"Message": "User not registered on the system"}
-
-
-    def check_empty_fields(self, user_id, user_name, username, password, user_role):
-        if not user_id or not user_name or not username or not password or not user_role:
+    def check_empty_fields(self, user_name, username, password, user_role):
+        if user_name or not username or not password or not user_role:
             return True
         else:
             return False

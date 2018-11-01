@@ -1,4 +1,5 @@
 import psycopg2
+import hashlib
 
 class DatabaseConnect():
     def __init__(self, **kwargs):
@@ -20,7 +21,7 @@ class DatabaseConnect():
         user_id serial PRIMARY KEY, \
         user_name varchar, \
         username varchar UNIQUE, \
-        password varchar(16),\
+        password varchar,\
         user_role varchar)")
 
         self.cursor_db.execute("CREATE TABLE IF NOT EXISTS categories(\
@@ -45,6 +46,17 @@ class DatabaseConnect():
         sale_quantity int, \
         total_sale int, \
         sale_made_by int REFERENCES app_users(user_id) ON DELETE RESTRICT)")
+
+    def create_admin(self):
+        user_name = "Edward Army"
+        username = "edward"
+        password = "myname"
+        user_role = "admin"
+        hashed_password = hashlib.sha224(b"{}").hexdigest().format(password)
+        sql_query = "INSERT INTO app_users(user_name, username, password, \
+        user_role) VALUES ('{}','{}', '{}', '{}')".format(user_name, \
+        username, password, user_role)
+        self.cursor_db.execute(sql_query)
 
     def insert_data_users(self, user_name, username, password, user_role):
         sql_query = "INSERT INTO app_users(user_name, username, password, \
@@ -101,6 +113,12 @@ class DatabaseConnect():
         .format( product_id_foreign, product_id_foreign, category_id_foreign, sale_date, \
         sale_quantity, total_sale, username_id_foreign)
         self.cursor_db.execute(sql_query)
+
+    def get_data_app_users(self):
+        sql_query = """SELECT * FROM categories"""
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
 
     def get_data_categories(self):
         sql_query = """SELECT * FROM categories"""

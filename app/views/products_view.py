@@ -3,7 +3,7 @@ This module includes the routes for the endpoints relating to products
 """
 from app.models.products import Products
 from flask import request, Response, Blueprint
-from app.utilities import admin_authorised
+from app.utilities import admin_authorised, admin_and_attendant
 from app.validity_check import valid_product, product_not_in_db
 from app.store_managerdb import DatabaseConnect
 import json
@@ -18,6 +18,7 @@ database_connect_obj = DatabaseConnect()
 
 
 @products_bp.route('/products', methods=['GET'])
+@admin_and_attendant
 def get_products():
     """This is the route for the endpoint for viewing all the products.
      It's accessible to both admin and the store attendants"""
@@ -29,6 +30,7 @@ def get_products():
 
 # GET a product by its id
 @products_bp.route('/products/<int:product_id>' , methods=['GET'])
+@admin_and_attendant
 def get_a_product(product_id):
     """
     This route is for the endpoint for getting a product by its id. It is also accessible to 
@@ -54,7 +56,7 @@ def get_a_product(product_id):
 
 
 @products_bp.route('/products', methods=['POST'])
-# @admin_authorised    
+@admin_authorised    
 def add_product():
     """
     This route is for the endpoint for adding a product. It is only accessible to admins

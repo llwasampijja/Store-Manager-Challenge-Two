@@ -46,6 +46,21 @@ def store_attendant_authorised(fn):
             return fn(*args, **kwargs)
     return wrapper
 
+def admin_and_attendant(fn):
+    """
+    This decorator is for restricting content to only be availble to store attendants
+    """
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        verify_jwt_in_request()
+        user_identity = get_jwt_identity()
+        if user_identity == "admin" or user_identity == "attendant":
+            return fn(*args, **kwargs)
+        else:
+            message = {"msg":"This feature is available to only the store attendants!"}
+            response = Response(json.dumps(message), content_type="application/json", status=403)
+            return response
+    return wrapper
 
 def publisher_and_admin(fn):
     """
