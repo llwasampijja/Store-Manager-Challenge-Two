@@ -3,7 +3,7 @@ This module includes routes to endpoints which are concerned with sales.
 """
 from app.models.sales import Sales
 from flask import Response, request, Blueprint
-from app.utilities import admin_authorised, store_attendant_authorised, publisher_and_admin
+from app.utilities import admin_authorised, store_attendant_authorised, publisher_and_admin, doesnt_exist
 from app.validity_check import invalid_sale
 from app.store_managerdb import DatabaseConnect
 from app.models.sales import Sales
@@ -26,7 +26,7 @@ def get_sales():
     return response
 
 @sales_bp.route('/sales/<int:sale_id>' , methods=['GET'])
-@admin_authorised
+# @admin_authorised
 def get_a_sale(sale_id):
     """
     This route is for the endpoint for getting a sale by its sale_id or id.
@@ -47,7 +47,7 @@ def get_a_sale(sale_id):
     return response
 
 @sales_bp.route('/sales', methods=['POST'])  
-@store_attendant_authorised  
+# @store_attendant_authorised  
 def add_sale():
     """
     This route is for the endpoint for adding products in the inventory.
@@ -69,7 +69,35 @@ def add_sale():
     sale_date = datetime.datetime.now()
     sale_quantity = request_data.get("sale_quantity")
     total_sale = unit_price * sale_quantity
-    sale_made_by = request_data.get("sale_made_by")
+    # sale_made_by = request_data.get("sale_made_by")
+    sale_made_by = database_connect_obj.get_logged_in_users( "jetli")[0]
+    
+    # print("This is ut: ", quantity_instock[0])
+
+    returned_product = list(database_connect_obj.product_exist_not(product_name))
+    returned_category= list(database_connect_obj.category_exist_not(category_name))
+    print(len(request_data))
+    if len(returned_category)==0:
+        return doesnt_exist()
+    else:
+        if len(returned_product)==0:
+            message = {"Message:": "There is no such product in the database"}
+            response = Response (json.dumps(message), content_type="application/json", status=201)
+            return response
+        else:
+            quantity_instock = database_connect_obj.get_product_quantity(product_name)[0]
+            if quantity_instock[0] < sale_quantity:
+                message = {"Message:": "Not Enough Products in Stock"}
+                response = Response (json.dumps(message), content_type="application/json", status=201)
+                return response
+            else:
+                new_quantity = quantity_instock[0] - sale_quantity
+                database_connect_obj.update_data_product_quantity(new_quantity, product_name)
+                database_connect_obj.insert_data_sales(product_name, unit_price, category_name, sale_date,\
+                category_name, sale_quantity, total_sale, sale_made_by[0])
+                list_products = get_database_sales()
+                response = Response(json.dumps(list_products), content_type="application/json", status=202)
+                return response
 
     # if sales_obj.check_empty_fields(product_name, unit_price, category_name, \
     #     sale_quantity, sale_made_by):

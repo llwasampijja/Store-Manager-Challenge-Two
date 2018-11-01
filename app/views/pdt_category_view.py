@@ -25,7 +25,7 @@ def get_category(category_id):
     return response
 
 @pdt_category_bp.route("/categories", methods=["POST"])
-@admin_authorised
+# @admin_authorised
 def add_category():
     request_data = request.get_json()
     category_name = request_data.get("category_name")

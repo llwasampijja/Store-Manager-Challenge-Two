@@ -133,5 +133,11 @@ def is_json(myjson):
     except ValueError:
         return False
     return True
+
+
+def doesnt_exist():
+    message = {"Message:": "Product or Category does not exist"}
+    response = Response (json.dumps(message), content_type="application/json", status=201)
+    return response
     
     

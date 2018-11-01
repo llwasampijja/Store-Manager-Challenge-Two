@@ -47,17 +47,6 @@ class DatabaseConnect():
         total_sale int, \
         sale_made_by int REFERENCES app_users(user_id) ON DELETE RESTRICT)")
 
-    def create_admin(self):
-        user_name = "Edward Army"
-        username = "edward"
-        password = "myname"
-        user_role = "admin"
-        hashed_password = hashlib.sha224(b"{}").hexdigest().format(password)
-        sql_query = "INSERT INTO app_users(user_name, username, password, \
-        user_role) VALUES ('{}','{}', '{}', '{}')".format(user_name, \
-        username, password, user_role)
-        self.cursor_db.execute(sql_query)
-
     def insert_data_users(self, user_name, username, password, user_role):
         sql_query = "INSERT INTO app_users(user_name, username, password, \
         user_role) VALUES ('{}','{}', '{}', '{}')".format(user_name, \
@@ -102,20 +91,22 @@ class DatabaseConnect():
         sale_quantity, total_sale, sale_made_by):
         category_id_foreign = self.get_id_foreign_categories(category_name)
         product_id_foreign = self.get_id_foreign_products(product_name)
-        username_id_foreign = self.get_id_foreign_users(sale_made_by)
+        # username_id_foreign = self.get_id_foreign_users(sale_made_by)
 
-        
-
-
-
-        sql_query = "INSERT INTO sales(product_name, unit_price, category, sale_date, \
+        sql_query = "INSERT INTO sales(product_name, unit_price, category_name, sale_date, \
         sale_quantity, total_sale, sale_made_by) VALUES('{}','{}','{}', '{}', '{}', '{}','{}')"\
         .format( product_id_foreign, product_id_foreign, category_id_foreign, sale_date, \
-        sale_quantity, total_sale, username_id_foreign)
+        sale_quantity, total_sale, sale_made_by)
         self.cursor_db.execute(sql_query)
 
     def get_data_app_users(self):
-        sql_query = """SELECT * FROM categories"""
+        sql_query = """SELECT * FROM users"""
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
+
+    def get_logged_in_users(self, username):
+        sql_query = """SELECT user_id FROM app_users WHERE username = '{}'""".format(username)
         self.cursor_db.execute(sql_query)
         result = self.cursor_db.fetchall()
         return result
@@ -179,7 +170,13 @@ class DatabaseConnect():
     #     self.cursor_db.execute(sql_query)
 
     def update_data_categories(self, category_name, category_id):
-        sql_query = """UPDATE categories SET category_name = '{}' WHERE category_id = '{}'""".format(category_name, category_id)
+        sql_query = """UPDATE categories SET category_name = '{}' WHERE category_id = \
+        '{}'""".format(category_name, category_id)
+        self.cursor_db.execute(sql_query)
+
+    def update_data_product_quantity(self, quantity, product_name):
+        sql_query = """UPDATE products SET quantity = '{}' WHERE product_name = \
+        '{}'""".format(quantity, product_name)
         self.cursor_db.execute(sql_query)
 
     def delete_data_product(self, product_id):
@@ -220,6 +217,11 @@ class DatabaseConnect():
         result = self.cursor_db.fetchall()
         return result
 
+    def get_product_quantity(self, product_name):
+        sql_query = """SELECT quantity FROM products WHERE product_name = '{}'""".format(product_name)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
 
     
 

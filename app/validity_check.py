@@ -29,16 +29,12 @@ def invalid_user(request_object):
         return True
 
 def invalid_sale (request_object):
-    if "sale_index" in request_object and "product_name" in request_object and "unit_price" in request_object and "category" in request_object and "sale_date" in request_object and "sale_quantity" in request_object and "total_sale" in request_object and "sale_made_by" in request_object:
+    if "product_name" in request_object and \
+        "unit_price" in request_object and "category_name" in request_object and \
+        "sale_made_by" in request_object:
         return False
     else:
         return True
-
-def empty_sale(request_object):
-    if "sale_index" in request_object and "product_name" in request_object and "unit_price" in request_object and "category" in request_object and "sale_date" in request_object and "sale_quantity" in request_object and "total_sale" in request_object and "sale_made_by" in request_object:
-        return True
-    else:
-        return False
 
 def check_item_in_list(index_label, item_index, items):
     if any(item.get("{0}".format(index_label)) == item_index for item in items):
