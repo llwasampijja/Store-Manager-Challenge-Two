@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.6"
+
+install:
+  - "pip install -r requirements.txt"
+  - "pip install psycopg2-binary"
+
+# command to run tests
+script:
+  - python3 -m pytest --cov=app/
+  
+after_success:
+  - coveralls
