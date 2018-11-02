@@ -21,6 +21,10 @@ def get_sales():
     this is the route to the endpoint of getting all the sales made by the store attendants. 
     It is available to only the administrator
     """
+
+
+
+
     list_sales = get_database_sales()
     response = Response(json.dumps(list_sales), content_type="application/json", status=200) 
     return response
@@ -32,16 +36,27 @@ def get_a_sale(sale_id):
     This route is for the endpoint for getting a sale by its sale_id or id.
     It is available to only the admin and the store attendant who carried out that sale
     """
-    data_from_db = database_connect_obj.get_data_sale_byid(sale_id)
+    if not is_valid_id(sale_id):
+        message = {"Message:": "There is no such sale record on the system"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
+
+    sales_data_from_db = list(database_connect_obj.get_data_sale_byid(sale_id))
+    product_id = sales_data_from_db[1]
+    products_data_from_db = database_connect_obj.get_data_product_byid(product_id)
+    category_data_from_db = database_connect_obj.get_data_category_byid(sales_data_from_db[3])
+    user_data_from_db = database_connect_obj.get_data_app_users_by_id(sales_data_from_db[7])[0]
+    print("this iso: ", user_data_from_db)
+    
     dict_sale = {
-            "sale_id": data_from_db[0],
-            "product_name": data_from_db[1],
-            "unit_price": data_from_db[2],
-            "category": data_from_db[3],
-            "sale_date": str(data_from_db[4]),
-            "sale_quantity": data_from_db[5],
-            "total_sale": data_from_db[6],
-            "sale_made_by": data_from_db[7]
+            "sale_id": sales_data_from_db[0],
+            "product_name": products_data_from_db[1],
+            "unit_price": products_data_from_db[2],
+            "category": category_data_from_db[1],
+            "sale_date": str(sales_data_from_db[4]),
+            "sale_quantity": sales_data_from_db[5],
+            "total_sale":  (products_data_from_db[2])*(sales_data_from_db[5]),
+            "sale_made_by": user_data_from_db[0]
         }
     response = Response(json.dumps(dict_sale), content_type="application/json", status=200)
     return response
@@ -115,15 +130,31 @@ def get_database_sales():
     data_from_db = database_connect_obj.get_data_sales()
     list_sales = []
     for x in data_from_db:
+        data_from_db = database_connect_obj.get_data_product_byid(x[1])
+        result = database_connect_obj.get_data_category_byid(data_from_db[5])
+        returned_user = database_connect_obj.get_data_app_users_by_id(x[7])[0]
+        print(returned_user[0])
+        dict_product = {
+            "product_id": data_from_db[0],
+            "product_name": data_from_db[1],
+            "unit_price": data_from_db[2],
+            "category": result[1],
+            "stock_date": str(data_from_db[4]),
+            "quantity": data_from_db[6],
+            "acceptable_minimum": data_from_db[3]
+        }
+
+
+
         dict_sale = {
         "sale_id": x[0],
-        "product_name": x[1],
-        "unit_price": x[2],
-        "category": x[3],
+        "product_name": dict_product.get("product_name"),
+        "unit_price": dict_product.get("unit_price"),
+        "category": dict_product.get("category"),
         "sale_date": str(x[4]),
         "sale_quantity": x[5],
-        "total_sale": x[6],
-        "sale_made_by": x[7]
+        "total_sale": (x[5])*(dict_product.get("unit_price")),
+        "sale_made_by": returned_user[0]
         }
         list_sales.append(dict_sale)
     return list_sales
@@ -132,3 +163,14 @@ def not_valid_sale(request_data):
     if invalid_sale(request_data):
         message = {"Message": "Invalid Sale"}
         return Response(json.dumps(message), content_type="application/json", status=201)
+
+def is_valid_id(sale_id):
+    returned_product = list(database_connect_obj.sale_id_invalid())
+    ids = []
+    for item in returned_product:
+        ids.append((item[0]))
+    print(ids[0])
+    if sale_id in ids: 
+        return True
+    else:
+        return False

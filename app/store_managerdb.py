@@ -105,6 +105,12 @@ class DatabaseConnect():
         result = self.cursor_db.fetchall()
         return result
 
+    def get_data_app_users_by_id(self, user_id):
+        sql_query = """SELECT * FROM app_users WHERE user_id = '{}'""".format(user_id)
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
+
     def get_logged_in_users(self, username):
         sql_query = """SELECT user_id FROM app_users WHERE username = '{}'""".format(username)
         self.cursor_db.execute(sql_query)
@@ -213,6 +219,12 @@ class DatabaseConnect():
 
     def product_id_invalid(self):
         sql_query = """SELECT product_id FROM products"""
+        self.cursor_db.execute(sql_query)
+        result = self.cursor_db.fetchall()
+        return result
+
+    def sale_id_invalid(self):
+        sql_query = """SELECT sales_id FROM sales"""
         self.cursor_db.execute(sql_query)
         result = self.cursor_db.fetchall()
         return result
