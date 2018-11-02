@@ -22,12 +22,12 @@ class Products():
         self.quantity = kwargs.get("stock_date")
         self.acceptable_minimum = kwargs.get("acceptable_minimum")
 
-        """Sample list of products"""
-        self.products = products_in_inventory
+    #     """Sample list of products"""
+    #     self.products = products_in_inventory
 
-    def get_all_products(self):
-        """Return all the products in the inventory"""
-        return get_all_items(self.products)
+    # def get_all_products(self):
+    #     """Return all the products in the inventory"""
+    #     return get_all_items(self.products)
 
     def check_empty_fields(self, product_name, unit_price, category_name, quantity, acceptable_minimum):
         if not product_name or not unit_price or not category_name or not quantity or not acceptable_minimum:
@@ -35,12 +35,12 @@ class Products():
         else:
             return True
 
-    def get_product_by_id(self, product_id):
-        """Returns a product by its id"""
-        if check_item_in_list("product_id", product_id, self.products):
-            return get_chosen_item("product_id", product_id, self.products)
-        else:
-            return {"Message": "Sale Record is not in the list"}
+    # def get_product_by_id(self, product_id):
+    #     """Returns a product by its id"""
+    #     if check_item_in_list("product_id", product_id, self.products):
+    #         return get_chosen_item("product_id", product_id, self.products)
+    #     else:
+    #         return {"Message": "Sale Record is not in the list"}
 
     # def admin_add_product(self):
     #     """Adds a product. This method is mainly used for unit testing"""
