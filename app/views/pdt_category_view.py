@@ -8,7 +8,7 @@ from app.utilities import admin_authorised
 pdt_category_bp = Blueprint("pdt_category", __name__)
 
 pdt_category_obj= PdtCategory()
-pdt_categories = pdt_category_obj.get_all_categories()
+# pdt_categories = pdt_category_obj.get_all_categories()
 database_connect_obj = DatabaseConnect()
 
 @pdt_category_bp.route("/categories", methods=["GET"])

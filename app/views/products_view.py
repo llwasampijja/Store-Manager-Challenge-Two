@@ -12,7 +12,7 @@ import datetime
 
 products_bp = Blueprint("products", __name__)
 products_obj = Products()
-products = products_obj.get_all_products()
+# products = products_obj.get_all_products()
 
 database_connect_obj = DatabaseConnect()
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, Response, request, session
 from app.utilities import create_id, is_json
-from app.models.store_attendant_model import StoreAttendant
+# from app.models.store_attendant_model import StoreAttendant
 from app.utilities import admin_authorised, admin_and_attendant
 from app.store_managerdb import DatabaseConnect
 from app.models.app_user import AppUser
