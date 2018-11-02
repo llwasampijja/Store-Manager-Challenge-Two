@@ -5,6 +5,7 @@ import hashlib
 import json
 
 app = create_app()
+#  deploy on heoku
 
 def create_admin_user():
     # request_data = request.get_json()
