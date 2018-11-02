@@ -44,7 +44,7 @@ class TestSales(unittest.TestCase):
             self.assertEqual(http_response.status_code, 200)
         else:
             self.assertEqual(http_response.status_code, 403)"""
-            pass
+        pass
 
     def test_get_a_sale(self):
         """
