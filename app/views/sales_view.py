@@ -3,19 +3,23 @@ This module includes routes to endpoints which are concerned with sales.
 """
 from app.models.sales import Sales
 from flask import Response, request, Blueprint
-from app.utilities import admin_authorised, store_attendant_authorised, publisher_and_admin, doesnt_exist
+from app.utilities import admin_authorised, store_attendant_authorised, doesnt_exist
 from app.validity_check import invalid_sale
 from app.store_managerdb import DatabaseConnect
-from app.models.sales import Sales
 import json
 import datetime
+import config
+from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, get_jwt_claims,\
+ get_jwt_identity
+
 
 sales_bp = Blueprint('sales', __name__)
 sales_obj = Sales()
 database_connect_obj = DatabaseConnect()
 
+
 @sales_bp.route('/sales', methods=['GET'])
-# @admin_authorised
+@admin_authorised
 def get_sales():
     """
     this is the route to the endpoint of getting all the sales made by the store attendants. 
@@ -30,7 +34,7 @@ def get_sales():
     return response
 
 @sales_bp.route('/sales/<int:sale_id>' , methods=['GET'])
-# @admin_authorised
+@admin_authorised
 def get_a_sale(sale_id):
     """
     This route is for the endpoint for getting a sale by its sale_id or id.
@@ -46,7 +50,18 @@ def get_a_sale(sale_id):
     products_data_from_db = database_connect_obj.get_data_product_byid(product_id)
     category_data_from_db = database_connect_obj.get_data_category_byid(sales_data_from_db[3])
     user_data_from_db = database_connect_obj.get_data_app_users_by_id(sales_data_from_db[7])[0]
-    print("this iso: ", user_data_from_db)
+
+    verify_jwt_in_request()
+    user_identity = get_jwt_identity()
+    
+    if user_identity["username"] == user_data_from_db[2]:
+        config.author = True
+    else:
+        config.author = False
+
+    print("This is ut: ", user_identity["username"])
+
+    print("this iso: ", str(config.author))
     
     dict_sale = {
             "sale_id": sales_data_from_db[0],
@@ -84,10 +99,24 @@ def add_sale():
     sale_date = datetime.datetime.now()
     sale_quantity = request_data.get("sale_quantity")
     total_sale = unit_price * sale_quantity
-    # sale_made_by = request_data.get("sale_made_by")
-    sale_made_by = database_connect_obj.get_logged_in_users( "jetli")[0]
+
+    if sales_obj.check_empty_fields(product_name, unit_price, category_name, sale_quantity):
+        message = {"Message:": "Empty fields not"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
+
+
+    if not sales_obj.correct_sale_type(product_name, unit_price, category_name,  sale_quantity):
+        message = {"Message:": "Wrong input data type"}
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
+
     
-    # print("This is ut: ", quantity_instock[0])
+    # sale_made_by = request_data.get("sale_made_by")
+    verify_jwt_in_request()
+    user_identity = get_jwt_identity()
+  
+    sale_made_by = database_connect_obj.get_logged_in_users( user_identity["username"])[0]
 
     returned_product = list(database_connect_obj.product_exist_not(product_name))
     returned_category= list(database_connect_obj.category_exist_not(category_name))
@@ -156,6 +185,8 @@ def get_database_sales():
         "total_sale": (x[5])*(dict_product.get("unit_price")),
         "sale_made_by": returned_user[0]
         }
+
+        # dict_total_sales = {}
         list_sales.append(dict_sale)
     return list_sales
 

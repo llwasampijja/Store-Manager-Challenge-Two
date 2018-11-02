@@ -7,7 +7,9 @@ from functools import wraps
 import json
 from app.validity_check import check_item_in_list
 import random
-from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, get_jwt_claims, get_jwt_identity
+from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, \
+get_jwt_claims, get_jwt_identity
+# import config
 
 """
 This includes the different types of accounts for this application. 
@@ -38,9 +40,9 @@ def store_attendant_authorised(fn):
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
         user_identity = get_jwt_identity()
-        if user_identity != 'attendant':
+        if user_identity["role"]  != 'attendant':
             message = {"msg":"This feature is available to only the store attendants!"}
-            response = Response(json.dumps(message), content_type="application/json", status=403)
+            response = Response(json.dumps(message), content_type="application/json", status=401)
             return response
         else:
             return fn(*args, **kwargs)
@@ -54,28 +56,31 @@ def admin_and_attendant(fn):
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
         user_identity = get_jwt_identity()
-        if user_identity == "admin" or user_identity == "attendant":
+        if user_identity["role"] == "admin" or user_identity["role"] == "attendant":
             return fn(*args, **kwargs)
         else:
             message = {"msg":"This feature is available to only the store attendants!"}
-            response = Response(json.dumps(message), content_type="application/json", status=403)
+            response = Response(json.dumps(message), content_type="application/json", status=401)
             return response
     return wrapper
 
-def publisher_and_admin(fn):
-    """
-    This docorator is for granting access to content which is
-     only available to admins as well as the authors of the content.
-    """
-    @wraps(fn)
-    def wrapper(*args, **kwargs):
-        if author or user_role == 2:
-            return fn(*args, **kwargs)
-        else:
-            message = {"msg":"This feature is available to only the admin and the individual who created it!"}
-            response = Response(json.dumps(message), content_type="application/json", status=403)
-            return response
-    return wrapper
+# def publisher_and_admin(fn):
+#     """
+#     This docorator is for granting access to content which is
+#      only available to admins as well as the authors of the content.
+#     """
+#     @wraps(fn)
+#     def wrapper(*args, **kwargs):
+#         verify_jwt_in_request()
+#         user_identity = get_jwt_identity()
+#         # if user_identity["role"] == "admin":
+#         if config.author == True:
+#             return fn(*args, **kwargs)
+#         else:
+#             message = {"msg":"This feature is available to only the admin and the individual who created it!"}
+#             response = Response(json.dumps(message), content_type="application/json", status=403)
+#             return response
+#     return wrapper
 
 def admin_authorised(fn):
     """
@@ -85,11 +90,11 @@ def admin_authorised(fn):
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
         user_identity = get_jwt_identity()
-        if user_identity == 'admin':
+        if user_identity["role"] == 'admin':
             return fn(*args, **kwargs)
         else:
             message = {"msg":"This feature is available to only the Admins"}
-            response = Response(json.dumps(message), content_type="application/json", status=403)
+            response = Response(json.dumps(message), content_type="application/json", status=401)
             return response
     return wrapper
 
@@ -126,13 +131,6 @@ def create_id(items):
         create_id (items)
     else:
         return user_id
-
-def is_json(myjson):
-    try:
-        json.loads(myjson)
-    except ValueError:
-        return False
-    return True
 
 
 def doesnt_exist():

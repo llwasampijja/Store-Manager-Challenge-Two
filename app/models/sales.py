@@ -37,10 +37,17 @@ class Sales():
 
 
     def check_empty_fields(self, product_name, unit_price, category_name, \
-        sale_quantity, sale_made_by):
-        if not product_name or not unit_price or not category_name or not\
-            sale_made_by:
-            return False
-        else:
+        sale_quantity):
+        if not product_name or not unit_price or not category_name or not sale_quantity:
             return True
+        else:
+            return False
+
+    def correct_sale_type(self, product_name, unit_price, category_name, \
+        sale_quantity):
+        if isinstance(product_name, str) and isinstance(unit_price, int) \
+            and isinstance(category_name, str) and isinstance(sale_quantity, int):
+            return True
+        else:
+            return False
 

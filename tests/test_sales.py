@@ -5,9 +5,12 @@ module as well as those in sales_views.py module
 
 import unittest
 import json
+from flask import Response
 from app import create_app
 from app.utilities import user_role, author
 from app.models.sales import Sales
+from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, \
+get_jwt_claims, get_jwt_identity
 
 
 class TestSales(unittest.TestCase):
@@ -18,15 +21,22 @@ class TestSales(unittest.TestCase):
         """
         self.app = create_app()
         self.sales_obj = Sales()
-        self.sales  = self.sales_obj.sale_records
+        # self.sales  = self.sales_obj.sale_records
         self.client = self.app.test_client(self)
 
     def test_get_sales(self):
         """
         Unit test for method get_sales
         """
+        verify_jwt_in_request()
+        user_identity = get_jwt_identity()
+        if user_identity["role"]  != 'attendant':
+            message = {"msg":"This feature is available to only the store attendants!"}
+            response = Response(json.dumps(message), content_type="application/json", status=401)
+            return response
+        else:
+            return 
         http_response = self.client.get('api/v1/sales')
-        self.assertNotEqual(http_response.status_code, 404)
         self.assertEqual(http_response.status_code, 200)
 
         """implement after implementing user authentication
@@ -58,9 +68,9 @@ class TestSales(unittest.TestCase):
         """"
         Check if a sale record in the sales list. This method is used to create a unit test for sale not available.
         """
-        if any(sale_id == item.get("sale_id") for item in self.sales):
-            return True
-        return False
+        # if any(sale_id == item.get("sale_id") for item in self.sales):
+        #     return True
+        # return False
 
     def test_add_sale(self):
         """

@@ -4,6 +4,7 @@ import hashlib
 class DatabaseConnect():
     def __init__(self, **kwargs):
         self.db_connect = psycopg2.connect(\
+    #  "dbname='test_db' \
     "dbname='store_manager_db' \
     user='andela' \
     host='localhost' \

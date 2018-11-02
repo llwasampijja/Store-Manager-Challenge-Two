@@ -15,6 +15,12 @@ class AppUser():
         else:
             return False
 
+    def correct_data_type(self, user_name, username, password, user_role):
+        if isinstance(user_name, str) and isinstance(username, str) and isinstance(user_role, str):
+            return True
+        else:
+            return False
+
     def check_role(self, user_role):
         if user_role == "admin":
             return True

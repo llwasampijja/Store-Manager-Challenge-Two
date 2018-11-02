@@ -35,6 +35,13 @@ class Products():
         else:
             return True
 
+    def correct_type(self, product_name, unit_price, category_name, quantity, acceptable_minimum):
+        if isinstance(product_name, str) and isinstance(unit_price, int) and isinstance(category_name, str) \
+            and isinstance(quantity, int) and isinstance(acceptable_minimum, int):
+            return True
+        else:
+            return False
+
     # def get_product_by_id(self, product_id):
     #     """Returns a product by its id"""
     #     if check_item_in_list("product_id", product_id, self.products):

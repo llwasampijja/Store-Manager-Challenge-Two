@@ -25,11 +25,17 @@ def get_category(category_id):
     return response
 
 @pdt_category_bp.route("/categories", methods=["POST"])
-# @admin_authorised
+@admin_authorised
 def add_category():
     request_data = request.get_json()
     category_name = request_data.get("category_name")
     returned_category= list(database_connect_obj.category_exist_not(category_name))
+
+    if pdt_category_obj.empty_category(category_name) or pdt_category_obj.wrong_type_category(category_name):
+        message = {"Message:": "Data type entered not allowed"}
+        database_connect_obj.insert_data_categories(category_name)
+        response = Response (json.dumps(message), content_type="application/json", status=201)
+        return response
 
     if len(returned_category)==0:
         message = {"Message:": "Category Successifully Added"}

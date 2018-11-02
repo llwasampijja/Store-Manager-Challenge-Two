@@ -30,8 +30,7 @@ def invalid_user(request_object):
 
 def invalid_sale (request_object):
     if "product_name" in request_object and \
-        "unit_price" in request_object and "category_name" in request_object and \
-        "sale_made_by" in request_object:
+        "unit_price" in request_object and "category_name" in request_object:
         return False
     else:
         return True

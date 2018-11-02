@@ -18,7 +18,7 @@ class TestProducts(unittest.TestCase):
 
         self.app = create_app()
         self.products_obj = Products()
-        self.products_list  = self.products_obj.products
+        # self.products_list  = self.products_obj.products
         self.client = self.app.test_client(self)
 
     def test_get_all_products(self):
@@ -43,9 +43,9 @@ class TestProducts(unittest.TestCase):
         """
         this method is to assist in doing a unit test in case a product is available or not
         """
-        if any(product_id == item.get("product_id") for item in self.products_list):
-            return True
-        return False
+        # if any(product_id == item.get("product_id") for item in self.products_list):
+        #     return True
+        # return False
 
     def test_add_product(self):
         """

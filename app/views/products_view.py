@@ -18,7 +18,7 @@ database_connect_obj = DatabaseConnect()
 
 
 @products_bp.route('/products', methods=['GET'])
-# @admin_and_attendant
+@admin_and_attendant
 def get_products():
     """This is the route for the endpoint for viewing all the products.
      It's accessible to both admin and the store attendants"""
@@ -30,7 +30,7 @@ def get_products():
 
 # GET a product by its id
 @products_bp.route('/products/<int:product_id>' , methods=['GET'])
-# @admin_and_attendant
+@admin_and_attendant
 def get_a_product(product_id):
     """
     This route is for the endpoint for getting a product by its id. It is also accessible to 
@@ -56,7 +56,7 @@ def get_a_product(product_id):
 
 
 @products_bp.route('/products', methods=['POST'])
-# @admin_authorised    
+@admin_authorised    
 def add_product():
     """
     This route is for the endpoint for adding a product. It is only accessible to admins
@@ -75,6 +75,10 @@ def add_product():
     if not products_obj.check_empty_fields(product_name, unit_price, category_name, quantity, \
     acceptable_minimum):
         message = {"Message": "No empty fields allowed"}
+        return Response(json.dumps(message), content_type="application/json", status=201)
+
+    if not products_obj.correct_type(product_name, unit_price, category_name, quantity, acceptable_minimum):
+        message = {"Message": "Entered a wrong type"}
         return Response(json.dumps(message), content_type="application/json", status=201)
 
     returned_category= list(database_connect_obj.category_exist_not(category_name))
@@ -103,7 +107,7 @@ def add_product():
     return response
 
 @products_bp.route("/products/<int:product_id>", methods=["PUT"])
-# @admin_authorised 
+@admin_authorised 
 def update_product(product_id):
     if not is_valid_id(product_id):
         return not_valid_response(product_id)
@@ -122,6 +126,10 @@ def update_product(product_id):
         message = {"Message": "No empty fields allowed"}
         return Response(json.dumps(message), content_type="application/json", status=201)
 
+    if not products_obj.correct_type(product_name, unit_price, category_name, quantity, minimum_quantity):
+        message = {"Message": "Entered a wrong type"}
+        return Response(json.dumps(message), content_type="application/json", status=201)
+
     returned_product = list(database_connect_obj.product_exist_not(product_name))
 
     if len(returned_product)==0:
@@ -138,7 +146,7 @@ def update_product(product_id):
     
 
 @products_bp.route("/products/<int:product_id>", methods=["DELETE"])
-# @admin_authorised 
+@admin_authorised 
 def delete_product(product_id):
     if is_valid_id(product_id):
         database_connect_obj.delete_data_product(product_id)

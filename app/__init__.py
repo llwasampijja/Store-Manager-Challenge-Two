@@ -31,5 +31,3 @@ def create_app(debug=True):
     jwt_manager = JWTManager()
     jwt_manager.init_app(app)
     return app
-
-    
