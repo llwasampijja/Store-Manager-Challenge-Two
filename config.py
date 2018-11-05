@@ -20,7 +20,7 @@ class ProductionConfig(Config):
 class TestingConfig(Config):
     TESTING =True
 
-runtime_mode = "testing"
+runtime_mode = "development"
 env_config = {
     "development": DevelopmentConfig,
     "testing": TestingConfig,

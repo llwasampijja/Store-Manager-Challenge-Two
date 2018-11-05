@@ -7,6 +7,8 @@ import json
 from app import create_app
 from app.utilities import user_role, author
 from app.models.products import Products
+import os
+from config import env_config, runtime_mode
 
 
 class TestProducts(unittest.TestCase):
@@ -16,7 +18,7 @@ class TestProducts(unittest.TestCase):
          Declaration and initialization of variables
         """
 
-        self.app = create_app()
+        self.app = create_app(env_config.get("{}".format(runtime_mode)))
         self.products_obj = Products()
         # self.products_list  = self.products_obj.products
         self.client = self.app.test_client(self)

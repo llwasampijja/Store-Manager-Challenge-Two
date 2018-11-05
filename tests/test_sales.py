@@ -9,6 +9,8 @@ from flask import Response
 from app import create_app
 from app.utilities import user_role, author
 from app.models.sales import Sales
+import os
+from config import env_config, runtime_mode
 # from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, \
 # get_jwt_claims, get_jwt_identity
 
@@ -19,7 +21,7 @@ class TestSales(unittest.TestCase):
         """
         Declare and initialize the variables
         """
-        self.app = create_app()
+        self.app = create_app(env_config.get("{}".format(runtime_mode)))
         self.sales_obj = Sales()
         # self.sales  = self.sales_obj.sale_records
         self.client = self.app.test_client(self)
