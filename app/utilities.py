@@ -4,11 +4,14 @@ which can be called from any moddule within this application
 """
 from flask import Response
 from functools import wraps
+from app.store_managerdb import DatabaseConnect
 import json
 from app.validity_check import check_item_in_list
 import random
 from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, \
 get_jwt_claims, get_jwt_identity
+import hashlib
+
 # import config
 
 """
@@ -24,6 +27,8 @@ ACCESS = {
     'store_attendant': 1,
     'admin': 2
 }
+
+database_connect = DatabaseConnect()
 
 """
 This is the test case for securing urls to different users. 
@@ -97,6 +102,19 @@ def admin_authorised(fn):
             response = Response(json.dumps(message), content_type="application/json", status=401)
             return response
     return wrapper
+
+def create_admin_user():
+    user_name = "Edward Army"
+    username = "edward"
+    password = "myname"
+    hashed_password = hashlib.sha224(b"{}").hexdigest().format(password)
+    user_role = "admin"
+    returned_user = list(database_connect.user_exist_not(username))
+
+    if len(returned_user)==0:
+        database_connect.insert_data_users(user_name, username, hashed_password, user_role)
+    else:
+        pass
 
 def get_all_items(items):
     """

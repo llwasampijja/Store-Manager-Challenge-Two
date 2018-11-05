@@ -10,7 +10,7 @@ class AppUser():
 
 
     def check_empty_fields(self, user_name, username, password, user_role):
-        if user_name or not username or not password or not user_role:
+        if user_name.strip() or not username.strip() or not password.strip() or not user_role.strip():
             return True
         else:
             return False

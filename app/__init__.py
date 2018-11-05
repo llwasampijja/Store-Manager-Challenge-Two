@@ -11,23 +11,22 @@ from app.views.login_view import login_bp
 from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, get_jwt_claims
 import os
 
-
-def create_app(debug=True):
+def create_app(config_name):
     """
     This is referred to as the application factory. It creates a single instance of 
     the flask app which is used accross the modules of the application.
     This is also where configulation takes place.
     The blue prints to the different routes are also registed to the app in this method.
     """
-    app =  Flask(__name__)
+    app =  Flask(__name__, instance_relative_config=True)
+    app.config.from_object(config_name)
+
+    jwt_manager = JWTManager()
+    jwt_manager.init_app(app)
+
     app.register_blueprint(sales_bp, url_prefix='/api/v1')
     app.register_blueprint(products_bp, url_prefix='/api/v1')
     app.register_blueprint(pdt_category_bp, url_prefix='/api/v1')
     app.register_blueprint(login_bp, url_prefix='/api/v1')
-    app.secret_key = os.urandom(12)
 
-
-    app.config['JWT_SECRET_KEY'] = app.secret_key
-    jwt_manager = JWTManager()
-    jwt_manager.init_app(app)
     return app

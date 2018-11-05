@@ -38,7 +38,7 @@ class Sales():
 
     def check_empty_fields(self, product_name, unit_price, category_name, \
         sale_quantity):
-        if not product_name or not unit_price or not category_name or not sale_quantity:
+        if not product_name.strip() or not unit_price.strip() or not category_name.strip() or not sale_quantity.strip():
             return True
         else:
             return False

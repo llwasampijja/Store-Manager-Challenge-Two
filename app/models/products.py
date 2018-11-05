@@ -30,7 +30,8 @@ class Products():
     #     return get_all_items(self.products)
 
     def check_empty_fields(self, product_name, unit_price, category_name, quantity, acceptable_minimum):
-        if not product_name or not unit_price or not category_name or not quantity or not acceptable_minimum:
+        if not product_name.strip() or not unit_price.strip() or not category_name.strip() \
+            or not quantity.strip() or not acceptable_minimum.strip():
             return False
         else:
             return True

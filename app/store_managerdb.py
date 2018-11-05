@@ -1,20 +1,30 @@
 import psycopg2
 import hashlib
+from config import env_config, runtime_mode
+import os
 
 class DatabaseConnect():
     def __init__(self, **kwargs):
-        self.db_connect = psycopg2.connect(\
-    #  "dbname='test_db' \
-    "dbname='store_manager_db' \
-    user='andela' \
-    host='localhost' \
-    password='bootcamp'")
-        self.db_connect.autocommit = True
+        self.dbname = ""
+        self.db_connect = None
+        
 
+        if runtime_mode == "development":
+            self.dbname = "store_manager_db"
+            self.db_connect = psycopg2.connect("dbname={} user='andela' host='localhost' password='bootcamp'".format(self.dbname))
+        
+        if runtime_mode == "testing":
+            self.dbname = "test_db"
+            self.db_connect = psycopg2.connect("dbname={} user='andela' host='localhost' password='bootcamp'".format(self.dbname))
+
+        if runtime_mode == "production":
+            DATABASE_URL = os.environ['DATABASE_URL']
+            self.db_connect = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+        self.db_connect.autocommit = True
         self.cursor_db = self.db_connect.cursor()
-    
-    def drop_tables(self):
-        self.cursor_db.execute("DROP TABLE")
+
+
     
     def create_tables(self):
         """create users table"""
