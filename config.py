@@ -1,5 +1,3 @@
-# author = False
-
 import os
 import app
 
