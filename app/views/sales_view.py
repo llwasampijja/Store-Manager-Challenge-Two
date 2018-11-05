@@ -4,7 +4,7 @@ This module includes routes to endpoints which are concerned with sales.
 from app.models.sales import Sales
 from flask import Response, request, Blueprint
 from app.utilities import admin_authorised, store_attendant_authorised, doesnt_exist
-from app.validity_check import invalid_sale
+from app.validity_check import invalid_sale, correct_type_sales, check_empty_fields_sales
 from app.store_managerdb import DatabaseConnect
 import json
 import datetime
@@ -100,13 +100,13 @@ def add_sale():
     sale_quantity = request_data.get("sale_quantity")
     total_sale = unit_price * sale_quantity
 
-    if sales_obj.check_empty_fields(product_name, unit_price, category_name, sale_quantity):
+    if check_empty_fields_sales(product_name, unit_price, category_name, sale_quantity):
         message = {"Message:": "Empty fields not"}
         response = Response (json.dumps(message), content_type="application/json", status=201)
         return response
 
 
-    if not sales_obj.correct_sale_type(product_name, unit_price, category_name,  sale_quantity):
+    if not correct_type_sales(product_name, unit_price, category_name,  sale_quantity):
         message = {"Message:": "Wrong input data type"}
         response = Response (json.dumps(message), content_type="application/json", status=201)
         return response

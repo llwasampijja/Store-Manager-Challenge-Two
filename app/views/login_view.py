@@ -4,7 +4,7 @@ from flask import Blueprint, Response, request, session
 from app.utilities import admin_authorised, admin_and_attendant
 from app.store_managerdb import DatabaseConnect
 from app.models.app_user import AppUser
-from app.validity_check import invalid_user
+from app.validity_check import invalid_user, check_empty_fields, correct_data_type, check_role
 import os
 import json
 import base64
@@ -79,17 +79,17 @@ def signup_user():
         response = Response (json.dumps(message), content_type="application/json", status=201)
         return response
 
-    if not app_user_obj.check_empty_fields(user_name,  username, password, \
+    if not check_empty_fields(user_name,  username, password, \
         user_role):
         message = {"Message": "No empty fields allowed"}
         return Response(json.dumps(message), content_type="application/json", status=406)
 
-    if not app_user_obj.correct_data_type(user_name, username, password, user_role):
+    if not correct_data_type(user_name, username, password, user_role):
         message = {"Message": "No empty fields allowed"}
         return Response(json.dumps(message), content_type="application/json", status=406)
 
     returned_user = list(database_connect_obj.user_exist_not(username))
-    if not app_user_obj.check_role(user_role):
+    if not check_role(user_role):
         message = {"Message:": "Entered a non-existant role"}
         response = Response (json.dumps(message), content_type="application/json", status=404)
         return response

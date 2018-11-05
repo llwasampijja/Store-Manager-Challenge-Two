@@ -4,7 +4,7 @@ This module includes the routes for the endpoints relating to products
 from app.models.products import Products
 from flask import request, Response, Blueprint
 from app.utilities import admin_authorised, admin_and_attendant, doesnt_exist
-from app.validity_check import valid_product
+from app.validity_check import valid_product, check_empty_fields_products, correct_type_products
 from app.store_managerdb import DatabaseConnect
 import json
 import uuid
@@ -72,12 +72,12 @@ def add_product():
     quantity = request_data.get("quantity")
     category_name = request_data.get("category_name")
 
-    if not products_obj.check_empty_fields(product_name, unit_price, category_name, quantity, \
+    if not check_empty_fields_products(product_name, unit_price, category_name, quantity, \
     acceptable_minimum):
         message = {"Message": "No empty fields allowed"}
         return Response(json.dumps(message), content_type="application/json", status=201)
 
-    if not products_obj.correct_type(product_name, unit_price, category_name, quantity, acceptable_minimum):
+    if not correct_type_products(product_name, unit_price, category_name, quantity, acceptable_minimum):
         message = {"Message": "Entered a wrong type"}
         return Response(json.dumps(message), content_type="application/json", status=201)
 

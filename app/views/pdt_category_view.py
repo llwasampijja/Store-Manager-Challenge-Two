@@ -13,6 +13,7 @@ database_connect_obj = DatabaseConnect()
 @pdt_category_bp.route("/categories", methods=["GET"])
 def get_all_product_categories():
     list_categories = get_db_categories()
+    print("Thop aru thu catugiroup:", list_categories)
     response = Response(json.dumps(list_categories), content_type="application/json", status=200)
     return response
 

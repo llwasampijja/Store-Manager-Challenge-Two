@@ -8,25 +8,6 @@ class AppUser():
         self.user_role = kwargs.get("user_role")
 
 
-    def check_empty_fields(self, user_name, username, password, user_role):
-        if user_name.strip() or not username.strip() or not password.strip() or not user_role.strip():
-            return True
-        else:
-            return False
-
-    def correct_data_type(self, user_name, username, password, user_role):
-        if isinstance(user_name, str) and isinstance(username, str) and isinstance(user_role, str):
-            return True
-        else:
-            return False
-
-    def check_role(self, user_role):
-        if user_role == "admin":
-            return True
-        elif user_role == "attendant":
-            return True
-        else:
-            return False
 
     
     

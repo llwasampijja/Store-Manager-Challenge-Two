@@ -46,6 +46,8 @@ def create_tables():
     total_sale int, \
     sale_made_by int REFERENCES app_users(user_id) ON DELETE RESTRICT)")
 
+    return "success"
+
 
 if __name__ == "__main__":
     create_tables()
