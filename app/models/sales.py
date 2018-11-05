@@ -1,9 +1,8 @@
 """
 This module includes a "Sales" class  and different methods which can be used by other modules.
 """
-from app.utilities import get_all_items, get_chosen_item
 from app.data_stored import sale_records_stored
-from app.validity_check import check_item_in_list
+# from app.validity_check import check_item_in_list
 class Sales():
 
     def __init__(self, **kwargs):

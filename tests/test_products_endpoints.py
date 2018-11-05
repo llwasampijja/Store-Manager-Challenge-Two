@@ -5,7 +5,6 @@ module as well as those in product_views.py module
 import unittest
 import json
 from app import create_app
-from app.utilities import user_role, author
 from app.models.products import Products
 from config import env_config, runtime_mode
 from app.utilities import create_admin_user

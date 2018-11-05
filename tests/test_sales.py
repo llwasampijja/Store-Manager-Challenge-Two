@@ -7,10 +7,7 @@ import unittest
 import json
 from flask import Response
 from app import create_app
-from app.utilities import user_role, author
 from app.models.sales import Sales
-# from flask_jwt_extended import  JWTManager, verify_jwt_in_request, create_access_token, \
-# get_jwt_claims, get_jwt_identity
 from config import env_config, runtime_mode
 from app.utilities import create_admin_user
 

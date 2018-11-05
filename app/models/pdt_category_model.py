@@ -1,5 +1,4 @@
 from app.data_stored import pdt_categories
-from app.utilities import get_chosen_item
 class PdtCategory():
 
     def __init__(self, **kwargs):

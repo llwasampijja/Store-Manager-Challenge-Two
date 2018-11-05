@@ -1,5 +1,4 @@
-from app.validity_check import check_item_in_list
-from app.utilities import get_chosen_item
+# from app.validity_check import check_item_in_list
 class AppUser():
     def __init__(self, **kwargs):
         self.user_id = kwargs.get("user_id")

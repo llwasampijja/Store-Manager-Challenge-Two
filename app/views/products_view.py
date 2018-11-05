@@ -4,7 +4,7 @@ This module includes the routes for the endpoints relating to products
 from app.models.products import Products
 from flask import request, Response, Blueprint
 from app.utilities import admin_authorised, admin_and_attendant, doesnt_exist
-from app.validity_check import valid_product, product_not_in_db
+from app.validity_check import valid_product
 from app.store_managerdb import DatabaseConnect
 import json
 import uuid

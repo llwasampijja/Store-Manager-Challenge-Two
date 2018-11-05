@@ -1,7 +1,6 @@
 from flask import Response, request, Blueprint
 import json
 from app.models.pdt_category_model import PdtCategory
-from app.utilities import create_id
 from app.store_managerdb import DatabaseConnect
 from app.utilities import admin_authorised
 

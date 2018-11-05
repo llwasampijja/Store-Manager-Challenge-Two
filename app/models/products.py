@@ -2,9 +2,8 @@
 This module includes a "Products" class with methods which are rreusable from other modules.
 """
 
-from app.utilities import get_all_items, get_chosen_item
 from app.data_stored import products_in_inventory
-from app.validity_check import check_item_in_list
+# from app.validity_check import check_item_in_list
 
 class Products():
    
