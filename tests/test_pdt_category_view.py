@@ -14,14 +14,15 @@ class TestPdtCategoryView(unittest.TestCase):
         self.database_connect_obj = DatabaseConnect()
         self.database_connect_obj.delete_table_categories()
         self.database_connect_obj.create_tables()
+        create_admin_user()
         login_creds = {"username": "edward", "password": "myname"}
         self.login_response = self.client.post("api/v1/auth/login", data = json.dumps(login_creds),\
          content_type="application/json")
         self.database_connect_obj.insert_data_categories("snacksrf")
         
 
-    def create_admin_user(self):
-        create_admin_user()
+    # def create_admin_user(self):
+    #     create_admin_user()
 
     def test_add_category(self):
         jwt_token = json.loads(self.login_response.data)["Access Token"]
