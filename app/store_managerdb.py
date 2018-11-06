@@ -200,8 +200,8 @@ class DatabaseConnect():
         sql_query = """DELETE FROM products WHERE product_id = '{}'""".format(product_id)
         self.cursor_db.execute(sql_query)
 
-    def delete_data_categories(self, category_id):
-        sql_query = """DELETE FROM categories WHERE category_id = '{}'""".format(category_id)
+    def delete_data_category(self, category_name):
+        sql_query = """DELETE FROM categories WHERE category_name = '{}'""".format(category_name)
         self.cursor_db.execute(sql_query)
 
     def verify_userlogin(self, username):
@@ -245,6 +245,16 @@ class DatabaseConnect():
         self.cursor_db.execute(sql_query)
         result = self.cursor_db.fetchall()
         return result
+
+    def delete_table_categories(self):
+        sql_query1 = """DROP TABLE sales;"""
+        sql_query2 = """DROP TABLE products;"""
+        sql_query3 = """DROP TABLE categories;"""
+        self.cursor_db.execute(sql_query1)
+        self.cursor_db.execute(sql_query2)
+        self.cursor_db.execute(sql_query3)
+
+
 
     
 

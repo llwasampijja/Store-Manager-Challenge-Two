@@ -3,6 +3,7 @@ import json
 from app.models.pdt_category_model import PdtCategory
 from app.store_managerdb import DatabaseConnect
 from app.utilities import admin_authorised
+from app.validity_check import empty_category, wrong_type_category
 
 pdt_category_bp = Blueprint("pdt_category", __name__)
 
@@ -31,7 +32,7 @@ def add_category():
     category_name = request_data.get("category_name")
     returned_category= list(database_connect_obj.category_exist_not(category_name))
 
-    if pdt_category_obj.empty_category(category_name) or pdt_category_obj.wrong_type_category(category_name):
+    if empty_category(category_name) or wrong_type_category(category_name):
         message = {"Message:": "Data type entered not allowed"}
         database_connect_obj.insert_data_categories(category_name)
         response = Response (json.dumps(message), content_type="application/json", status=201)

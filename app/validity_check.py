@@ -20,7 +20,7 @@ def check_role(user_role):
 
 
 def empty_category(category_name):
-    if not category_name.strip():
+    if not str(category_name).strip():
         return True
     else:
         return False

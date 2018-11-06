@@ -55,7 +55,7 @@ def login_user():
             expires_delta=datetime.timedelta(days=30))
             response = Response(json.dumps({"acess_token": acess_token}), content_type="application/json",\
              status=202)
-            message = {"Message:": "Login was successiful", "Access Token: ": acess_token, "Username:": username,\
+            message = {"Message:": "Login was successiful", "Access Token": acess_token, "Username:": username,\
             "Name ": user_name, "User Role": user_role,  "Password": hashed_password}
             response = Response (json.dumps(message), content_type="application/json", status=201)
             return response
